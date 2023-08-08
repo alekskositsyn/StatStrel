@@ -1,0 +1,2 @@
+# StatStrel
+Desctop app
