@@ -24,10 +24,18 @@ class MainWindow(QMainWindow):
         self.ui.cmb_division.currentIndexChanged.connect(self.load_officers)
 
     def load_officers(self):
-        division_id = self.ui.cmb_division.currentData().id
+        divisions_data = self.ui.cmb_division.currentData()
+        if divisions_data:
+            division_id = self.ui.cmb_division.currentData().id
+        else:
+            division_id = 0
         self.ui.list_table.clear()
         with Session(self.engine) as s:
-            query = """SELECT * FROM officers where division = :did order by user"""
+            query = """
+                select * from officers 
+                where (:did = 0 or division = :did) 
+                order by user
+                """
 
             rows = s.execute(text(query), {"did": division_id})
             for r in rows:
@@ -52,6 +60,7 @@ class MainWindow(QMainWindow):
                 self.divisions[r.id] = r
             print(self.divisions)
 
+        self.ui.cmb_division.addItem('-')
         for division in self.divisions.values():
             self.ui.cmb_division.addItem(division.name, division)
 
