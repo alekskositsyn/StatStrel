@@ -19,10 +19,7 @@ class MainWindow(QMainWindow):
 
     def load_officers(self):
         with Session(self.engine) as s:
-            query = """
-            SELECT * 
-            FROM officers
-            """
+            query = """SELECT * FROM officers"""
 
             rows = s.execute(text(query))
             for r in rows:
