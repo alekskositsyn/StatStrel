@@ -22,6 +22,7 @@ class MainWindow(QMainWindow):
         self.load_officers()
 
         self.ui.cmb_division.currentIndexChanged.connect(self.load_officers)
+        self.ui.cmb_degree.currentIndexChanged.connect(self.load_officers)
 
     def load_officers(self):
         divisions_data = self.ui.cmb_division.currentData()
@@ -29,27 +30,38 @@ class MainWindow(QMainWindow):
             division_id = self.ui.cmb_division.currentData().id
         else:
             division_id = 0
+
+        degree_data = self.ui.cmb_degree.currentData()
+        if degree_data:
+            degree_id = self.ui.cmb_degree.currentData().id
+        else:
+            degree_id = 0
+
         self.ui.list_table.clear()
         with Session(self.engine) as s:
             query = """
                 select * from officers 
                 where (:did = 0 or division = :did) 
+                and (:d = 0 or degree = :d)
                 order by user
                 """
 
-            rows = s.execute(text(query), {"did": division_id})
+            rows = s.execute(text(query), {"did": division_id, "d": degree_id})
             for r in rows:
                 degree_name = self.degree[r.id].degree
                 division_name = self.divisions[r.id].name
                 self.ui.list_table.addItem(f'{r.id}: {r.user} {r.birthday} {degree_name} {division_name}')
 
     def select_degree(self):
+        self.ui.cmb_degree.addItem('-')
+
         with Session(self.engine) as s:
             self.degree = {}
             query = """select * from degree"""
             rows = s.execute(text(query))
             for r in rows:
                 self.degree[r.id] = r
+                self.ui.cmb_degree.addItem(r.degree, r)
 
     def select_divisions(self):
         with Session(self.engine) as s:
@@ -58,7 +70,6 @@ class MainWindow(QMainWindow):
             rows = s.execute(text(query))
             for r in rows:
                 self.divisions[r.id] = r
-            print(self.divisions)
 
         self.ui.cmb_division.addItem('-')
         for division in self.divisions.values():

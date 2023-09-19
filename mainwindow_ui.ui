@@ -28,7 +28,7 @@
         <widget class="QComboBox" name="cmb_division"/>
        </item>
        <item row="0" column="2" colspan="3">
-        <widget class="QComboBox" name="cmb_exercise"/>
+        <widget class="QComboBox" name="cmb_degree"/>
        </item>
        <item row="2" column="0">
         <widget class="QPushButton" name="btn_add">
@@ -36,9 +36,6 @@
           <string>Добавть</string>
          </property>
         </widget>
-       </item>
-       <item row="1" column="0" colspan="5">
-        <widget class="QListView" name="list_table"/>
        </item>
        <item row="2" column="4">
         <widget class="QPushButton" name="btn_delete">
@@ -53,6 +50,9 @@
           <string>Изменить</string>
          </property>
         </widget>
+       </item>
+       <item row="1" column="0" colspan="5">
+        <widget class="QListWidget" name="list_table"/>
        </item>
       </layout>
      </widget>
