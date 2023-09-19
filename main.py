@@ -11,22 +11,29 @@ from mainwindow_ui import Ui_MainWindow
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.divisions = None
         self.degree = None
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
         self.engine = create_engine("sqlite+pysqlite:///database/db_statstrel.db", echo=True)
+        self.select_divisions()
         self.select_degree()
         self.load_officers()
 
-    def load_officers(self):
-        with Session(self.engine) as s:
-            query = """SELECT * FROM officers order by user"""
+        self.ui.cmb_division.currentIndexChanged.connect(self.load_officers)
 
-            rows = s.execute(text(query))
+    def load_officers(self):
+        division_id = self.ui.cmb_division.currentData().id
+        self.ui.list_table.clear()
+        with Session(self.engine) as s:
+            query = """SELECT * FROM officers where division = :did order by user"""
+
+            rows = s.execute(text(query), {"did": division_id})
             for r in rows:
                 degree_name = self.degree[r.id].degree
-                self.ui.list_table.addItem(f'{r.id}: {r.user} {r.birthday} {degree_name}')
+                division_name = self.divisions[r.id].name
+                self.ui.list_table.addItem(f'{r.id}: {r.user} {r.birthday} {degree_name} {division_name}')
 
     def select_degree(self):
         with Session(self.engine) as s:
@@ -35,7 +42,18 @@ class MainWindow(QMainWindow):
             rows = s.execute(text(query))
             for r in rows:
                 self.degree[r.id] = r
-            print(self.degree)
+
+    def select_divisions(self):
+        with Session(self.engine) as s:
+            self.divisions = {}
+            query = """select * from divisions"""
+            rows = s.execute(text(query))
+            for r in rows:
+                self.divisions[r.id] = r
+            print(self.divisions)
+
+        for division in self.divisions.values():
+            self.ui.cmb_division.addItem(division.name, division)
 
     def insert_officer(self):
         with Session(self.engine) as s:
