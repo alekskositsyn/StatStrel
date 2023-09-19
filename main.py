@@ -14,7 +14,6 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.engine = create_engine("sqlite+pysqlite:///database/db_statstrel.db", echo=True)
-        self.insert_officer()
         self.load_officers()
 
 
@@ -23,16 +22,13 @@ class MainWindow(QMainWindow):
             # query = """SELECT * FROM officers"""
             division_id = 2
             query = ''' 
-            SELECT o.user, d.name
-            FROM officers o
-            JOIN main.divisions d
-            on o.division = d.id
-            where division = :d_id and degree = 3
+            SELECT *
+            FROM officers
             '''
 
             rows = s.execute(text(query), {"d_id": division_id})
             for r in rows:
-                print(r)
+                self.ui.list_table.addItem(f'{r.user} {r.birthday} {r.degree}')
 
     def insert_officer(self):
         with Session(self.engine) as s:

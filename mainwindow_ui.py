@@ -9,15 +9,16 @@
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+                            QMetaObject, QObject, QPoint, QRect,
+                            QSize, QTime, QUrl, Qt)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+                           QFont, QFontDatabase, QGradient, QIcon,
+                           QImage, QKeySequence, QLinearGradient, QPainter,
+                           QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
-    QHBoxLayout, QListView, QMainWindow, QMenuBar,
-    QPushButton, QSizePolicy, QWidget)
+                               QHBoxLayout, QListView, QListWidget, QMainWindow, QMenuBar,
+                               QPushButton, QSizePolicy, QWidget)
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -49,7 +50,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.btn_add, 2, 0, 1, 1)
 
-        self.list_table = QListView(self.frame)
+        self.list_table = QListWidget(self.frame)
         self.list_table.setObjectName(u"list_table")
 
         self.gridLayout.addWidget(self.list_table, 1, 0, 1, 5)
@@ -64,7 +65,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.btn_update, 2, 2, 1, 1)
 
-
         self.horizontalLayout.addWidget(self.frame)
 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -76,12 +76,15 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
+
     # setupUi
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.btn_add.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0442\u044c", None))
-        self.btn_delete.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
-        self.btn_update.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
+        self.btn_add.setText(
+            QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0442\u044c", None))
+        self.btn_delete.setText(
+            QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
+        self.btn_update.setText(
+            QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
     # retranslateUi
-
