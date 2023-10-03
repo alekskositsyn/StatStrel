@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QDialog
 from sqlalchemy.orm import Session
 
 from mainwindow_ui import Ui_MainWindow
-from addOfficerDialog import Ui_Dialog
+from add_officer_ui import Ui_Dialog
 
 
 class EditDialog(QDialog):

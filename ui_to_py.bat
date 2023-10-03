@@ -1,1 +1,0 @@
-venv\Scripts\pyuic6.exe -x mainwindow_ui.ui -o mainwindow_ui.py
