@@ -63,7 +63,9 @@ class MainWindow(QMainWindow):
                 self.degree[r.id] = r
                 self.ui.cmb_degree.addItem(r.degree, r)
 
-    def select_divisions(self):
+    def load_divisions(self):
+        """ Вывод списка подразделений """
+
         with Session(self.engine) as s:
             self.divisions = {}
             query = """select * from divisions"""
