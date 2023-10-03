@@ -2,10 +2,34 @@ import sys
 
 import PySide6
 from sqlalchemy import create_engine, text
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow, QDialog
 from sqlalchemy.orm import Session
 
 from mainwindow_ui import Ui_MainWindow
+from addOfficerDialog import Ui_Dialog
+
+
+class EditDialog(QDialog):
+    def __init__(self, degree, divisions, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+
+        self.ui.btnAdd.clicked.connect(self.accept)
+        self.ui.btnCancel.clicked.connect(self.reject)
+
+        for r in degree.values():
+            self.ui.cmbDegree.addItem(r.degree, r)
+        for r in divisions.values():
+            self.ui.cmbDivisions.addItem(r.name, r)
+
+    def get_data(self):
+        return {
+            'name': self.ui.txtName.text(),
+            'division': self.ui.cmbDivisions.currentData().id,
+            'birthday': self.ui.dateEdit.date().toPython(),
+            'degree': self.ui.cmbDegree.currentData().id
+        }
 
 
 class MainWindow(QMainWindow):
@@ -17,14 +41,40 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.engine = create_engine("sqlite+pysqlite:///database/db_statstrel.db", echo=True)
-        self.select_divisions()
-        self.select_degree()
+        self.load_divisions()
+        self.load_degree()
         self.load_officers()
 
         self.ui.cmb_division.currentIndexChanged.connect(self.load_officers)
         self.ui.cmb_degree.currentIndexChanged.connect(self.load_officers)
+        self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
+
+    def on_btn_add_clicked(self):
+        dialog = EditDialog(self.degree, self.divisions)
+        r = dialog.exec()
+        if r == 0:
+            print('Exit')
+            return
+
+        data = dialog.get_data()
+        with Session(self.engine) as s:
+            query = '''
+            insert into officers(user, birthday, division, degree)
+            values (:user, :birthday, :division, :degree)
+            '''
+            s.execute(text(query), {
+                "user": data["name"],
+                "birthday": data["birthday"],
+                "division": data["division"],
+                "degree": data["degree"]
+            })
+            s.commit()
+
+        self.load_officers()
 
     def load_officers(self):
+        """ Вывод списка сотрудников """
+
         divisions_data = self.ui.cmb_division.currentData()
         if divisions_data:
             division_id = self.ui.cmb_division.currentData().id
@@ -48,11 +98,13 @@ class MainWindow(QMainWindow):
 
             rows = s.execute(text(query), {"did": division_id, "d": degree_id})
             for r in rows:
-                degree_name = self.degree[r.id].degree
-                division_name = self.divisions[r.id].name
+                degree_name = self.degree[r.degree].degree
+                division_name = self.divisions[r.division].name
                 self.ui.list_table.addItem(f'{r.id}: {r.user} {r.birthday} {degree_name} {division_name}')
 
-    def select_degree(self):
+    def load_degree(self):
+        """ Вывод списка уровня подготовки """
+
         self.ui.cmb_degree.addItem('-')
 
         with Session(self.engine) as s:
@@ -77,19 +129,6 @@ class MainWindow(QMainWindow):
         for division in self.divisions.values():
             self.ui.cmb_division.addItem(division.name, division)
 
-    def insert_officer(self):
-        with Session(self.engine) as s:
-            query = '''
-            insert into officers(user, birthday, division, degree)
-            values (:user, :birthday, :division, :degree)
-            '''
-            s.execute(text(query), {
-                "user": 'Туполев Алексей Геннадьевич',
-                "birthday": '1992.12.01',
-                "division": 4,
-                "degree": 3
-            })
-            s.commit()
 
 
 if __name__ == '__main__':
