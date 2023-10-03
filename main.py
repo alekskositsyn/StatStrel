@@ -1,10 +1,9 @@
 import sys
 
-import PySide6
 from sqlalchemy import create_engine, text
-from PySide6.QtWidgets import QApplication, QMainWindow, QDialog
+from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QListWidgetItem, QMessageBox
 from sqlalchemy.orm import Session
-
+from PySide6 import QtCore
 from mainwindow_ui import Ui_MainWindow
 from add_officer_ui import Ui_Dialog
 
@@ -48,6 +47,7 @@ class MainWindow(QMainWindow):
         self.ui.cmb_division.currentIndexChanged.connect(self.load_officers)
         self.ui.cmb_degree.currentIndexChanged.connect(self.load_officers)
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
+        self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
 
     def on_btn_add_clicked(self):
         dialog = EditDialog(self.degree, self.divisions)
@@ -70,6 +70,23 @@ class MainWindow(QMainWindow):
             })
             s.commit()
 
+        self.load_officers()
+
+    def on_btn_remove_clicked(self):
+        item = self.ui.list_table.currentItem()
+        data = item.data(QtCore.Qt.ItemDataRole.UserRole)
+        item_id = data.id
+        r = QMessageBox.question(self, "Подтверждение", "Точно ли хотите удалить")
+        if r == QMessageBox.StandardButton.No:
+            return
+        with Session(self.engine) as s:
+            query = """
+                delete from officers
+                where id = :id
+            """
+
+            s.execute(text(query), {"id": item_id})
+            s.commit()
         self.load_officers()
 
     def load_officers(self):
@@ -100,7 +117,9 @@ class MainWindow(QMainWindow):
             for r in rows:
                 degree_name = self.degree[r.degree].degree
                 division_name = self.divisions[r.division].name
-                self.ui.list_table.addItem(f'{r.id}: {r.user} {r.birthday} {degree_name} {division_name}')
+                item = QListWidgetItem(f'{r.id}: {r.user} {r.birthday} {degree_name} {division_name}')
+                item.setData(QtCore.Qt.ItemDataRole.UserRole, r)
+                self.ui.list_table.addItem(item)
 
     def load_degree(self):
         """ Вывод списка уровня подготовки """
@@ -128,7 +147,6 @@ class MainWindow(QMainWindow):
         self.ui.cmb_division.addItem('-')
         for division in self.divisions.values():
             self.ui.cmb_division.addItem(division.name, division)
-
 
 
 if __name__ == '__main__':
