@@ -50,6 +50,8 @@ class MainWindow(QMainWindow):
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
 
     def on_btn_add_clicked(self):
+        """ Добавление нового сотрудника"""
+
         dialog = EditDialog(self.degree, self.divisions)
         r = dialog.exec()
         if r == 0:
@@ -73,6 +75,8 @@ class MainWindow(QMainWindow):
         self.load_officers()
 
     def on_btn_remove_clicked(self):
+        """ Удаление сотрудника """
+
         item = self.ui.list_table.currentItem()
         data = item.data(QtCore.Qt.ItemDataRole.UserRole)
         item_id = data.id
