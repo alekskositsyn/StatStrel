@@ -68,22 +68,41 @@ class MainWindow(QMainWindow):
         self.ui.btn_update.clicked.connect(self.on_btn_update_clicked)
 
     def on_btn_update_clicked(self):
+        """  Редактирование данных сотрудника """
+
         remember_choice = QMessageBox()
-        remember_choice.setWindowTitle("Редактирование профиля сотрудника")
+        remember_choice.setWindowTitle("Редактирование данных сотрудника")
         remember_choice.setText("Выберите сотрудника для редактирования")
         item = self.ui.list_table.currentItem()
         if item is None:
             remember_choice.exec()
             return
-        data = item.data(QtCore.Qt.ItemDataRole.UserRole)
+        init_data = item.data(QtCore.Qt.ItemDataRole.UserRole)
 
-        print(data)
+        print(init_data)
 
-        dialog = UpdateDialog(self.degree, self.divisions, data)
+        dialog = UpdateDialog(self.degree, self.divisions, init_data)
         r = dialog.exec()
         if r == 0:
             print('Exit')
             return
+        data = dialog.get_data()
+        with Session(self.engine) as s:
+            query = '''
+                        update officers
+                        set user = :user, birthday = :birthday,division = :division, degree = :degree
+                        where id = :id
+                        '''
+            s.execute(text(query), {
+                "id": init_data.id,
+                "user": data["name"],
+                "birthday": data["birthday"],
+                "division": data["division"],
+                "degree": data["degree"]
+            })
+            s.commit()
+
+        self.load_officers()
 
     def on_btn_add_clicked(self):
         """ Добавление нового сотрудника"""
