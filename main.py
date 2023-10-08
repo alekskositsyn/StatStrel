@@ -31,6 +31,23 @@ class EditDialog(QDialog):
         }
 
 
+class UpdateDialog(EditDialog):
+    def __init__(self, degree, divisions, init_data, *args, **kwargs):
+        super().__init__(degree, divisions, *args, **kwargs)
+        self.ui.btnAdd.setText('Изменить')
+
+        officer_name = init_data.user
+        officers_division = divisions[init_data.division].name
+        officer_birthday = init_data.birthday
+        q_date = QtCore.QDate.fromString(officer_birthday, "yyyy-MM-dd")
+        officers_degree = degree[init_data.degree].degree
+
+        self.ui.txtName.setText(officer_name)
+        self.ui.cmbDivisions.setCurrentText(officers_division)
+        self.ui.dateEdit.setDate(q_date)
+        self.ui.cmbDegree.setCurrentText(officers_degree)
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -48,6 +65,25 @@ class MainWindow(QMainWindow):
         self.ui.cmb_degree.currentIndexChanged.connect(self.load_officers)
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
+        self.ui.btn_update.clicked.connect(self.on_btn_update_clicked)
+
+    def on_btn_update_clicked(self):
+        remember_choice = QMessageBox()
+        remember_choice.setWindowTitle("Редактирование профиля сотрудника")
+        remember_choice.setText("Выберите сотрудника для редактирования")
+        item = self.ui.list_table.currentItem()
+        if item is None:
+            remember_choice.exec()
+            return
+        data = item.data(QtCore.Qt.ItemDataRole.UserRole)
+
+        print(data)
+
+        dialog = UpdateDialog(self.degree, self.divisions, data)
+        r = dialog.exec()
+        if r == 0:
+            print('Exit')
+            return
 
     def on_btn_add_clicked(self):
         """ Добавление нового сотрудника"""
@@ -76,8 +112,13 @@ class MainWindow(QMainWindow):
 
     def on_btn_remove_clicked(self):
         """ Удаление сотрудника """
-
+        remember_choice = QMessageBox()
+        remember_choice.setWindowTitle("Удаление")
+        remember_choice.setText("Выберите сотрудника для удаления")
         item = self.ui.list_table.currentItem()
+        if item is None:
+            remember_choice.exec()
+            return
         data = item.data(QtCore.Qt.ItemDataRole.UserRole)
         item_id = data.id
         r = QMessageBox.question(self, "Подтверждение", "Точно ли хотите удалить")
