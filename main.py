@@ -89,9 +89,12 @@ class MainWindow(QMainWindow):
         data = dialog.get_data()
         with Session(self.engine) as s:
             query = '''
-                        update officers
-                        set user = :user, birthday = :birthday,division = :division, degree = :degree
-                        where id = :id
+                        UPDATE officers
+                        SET user = :user, 
+                            birthday = :birthday,
+                            division = :division, 
+                            degree = :degree
+                        WHERE id = :id
                         '''
             s.execute(text(query), {
                 "id": init_data.id,
@@ -116,8 +119,8 @@ class MainWindow(QMainWindow):
         data = dialog.get_data()
         with Session(self.engine) as s:
             query = '''
-            insert into officers(user, birthday, division, degree)
-            values (:user, :birthday, :division, :degree)
+            INSERT INTO officers(user, birthday, division, degree)
+            VALUES (:user, :birthday, :division, :degree)
             '''
             s.execute(text(query), {
                 "user": data["name"],
@@ -145,12 +148,13 @@ class MainWindow(QMainWindow):
             return
         with Session(self.engine) as s:
             query = """
-                delete from officers
-                where id = :id
+                DELETE FROM officers
+                WHERE id = :id
             """
 
             s.execute(text(query), {"id": item_id})
             s.commit()
+
         self.load_officers()
 
     def load_officers(self):
@@ -171,10 +175,10 @@ class MainWindow(QMainWindow):
         self.ui.list_table.clear()
         with Session(self.engine) as s:
             query = """
-                select * from officers 
-                where (:did = 0 or division = :did) 
-                and (:d = 0 or degree = :d)
-                order by user
+                SELECT * FROM officers 
+                WHERE (:did = 0 or division = :did) 
+                AND (:d = 0 or degree = :d)
+                ORDER BY  user
                 """
 
             rows = s.execute(text(query), {"did": division_id, "d": degree_id})
@@ -192,7 +196,7 @@ class MainWindow(QMainWindow):
 
         with Session(self.engine) as s:
             self.degree = {}
-            query = """select * from degree"""
+            query = """SELECT * FROM degree"""
             rows = s.execute(text(query))
             for r in rows:
                 self.degree[r.id] = r
@@ -203,7 +207,7 @@ class MainWindow(QMainWindow):
 
         with Session(self.engine) as s:
             self.divisions = {}
-            query = """select * from divisions"""
+            query = """SELECT * FROM divisions"""
             rows = s.execute(text(query))
             for r in rows:
                 self.divisions[r.id] = r
