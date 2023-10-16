@@ -34,15 +34,10 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frame)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.cmb_division = QComboBox(self.frame)
-        self.cmb_division.setObjectName(u"cmb_division")
+        self.list_table = QListWidget(self.frame)
+        self.list_table.setObjectName(u"list_table")
 
-        self.gridLayout.addWidget(self.cmb_division, 0, 0, 1, 2)
-
-        self.cmb_degree = QComboBox(self.frame)
-        self.cmb_degree.setObjectName(u"cmb_degree")
-
-        self.gridLayout.addWidget(self.cmb_degree, 0, 2, 1, 3)
+        self.gridLayout.addWidget(self.list_table, 1, 0, 1, 5)
 
         self.btn_add = QPushButton(self.frame)
         self.btn_add.setObjectName(u"btn_add")
@@ -59,10 +54,29 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.btn_update, 2, 2, 1, 1)
 
-        self.list_table = QListWidget(self.frame)
-        self.list_table.setObjectName(u"list_table")
+        self.frame_2 = QFrame(self.frame)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_2)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.cmb_division = QComboBox(self.frame_2)
+        self.cmb_division.setObjectName(u"cmb_division")
 
-        self.gridLayout.addWidget(self.list_table, 1, 0, 1, 5)
+        self.horizontalLayout_2.addWidget(self.cmb_division)
+
+        self.cmb_exercise = QComboBox(self.frame_2)
+        self.cmb_exercise.setObjectName(u"cmb_exercise")
+
+        self.horizontalLayout_2.addWidget(self.cmb_exercise)
+
+        self.cmb_degree = QComboBox(self.frame_2)
+        self.cmb_degree.setObjectName(u"cmb_degree")
+
+        self.horizontalLayout_2.addWidget(self.cmb_degree)
+
+
+        self.gridLayout.addWidget(self.frame_2, 0, 0, 1, 5)
 
 
         self.horizontalLayout.addWidget(self.frame)
@@ -80,7 +94,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.btn_add.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0442\u044c", None))
+        self.btn_add.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
         self.btn_delete.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.btn_update.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
     # retranslateUi

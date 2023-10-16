@@ -77,7 +77,6 @@ class Ui_Dialog(object):
 
         self.dateEdit = QDateEdit(Dialog)
         self.dateEdit.setObjectName(u"dateEdit")
-        self.dateEdit.setDisplayFormat("d.MMM.yyyy")
 
         self.gridLayout.addWidget(self.dateEdit, 5, 0, 1, 3)
 
