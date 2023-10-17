@@ -2,13 +2,13 @@ import sys
 
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from sqlalchemy import create_engine, text
-from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QListWidgetItem, QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from sqlalchemy.orm import Session
 from PySide6 import QtCore, QtWidgets
 
-from database import DataBase
+from dialogs.UserCreateDialog import UserCreatDialog
+from dialogs.UserEditDialog import UserEditDialog
 from mainwindow_ui import Ui_MainWindow
-from add_officer_ui import Ui_Dialog
 
 
 def gui_create_model(database):
@@ -41,7 +41,6 @@ class ItemsModel(QtCore.QAbstractTableModel):
 
     def set_users(self, users_list):
         self.beginResetModel()
-        print(users_list)
         self.users_list = users_list
         self.endResetModel()
 
@@ -91,46 +90,6 @@ class ItemsModel(QtCore.QAbstractTableModel):
                 }.get(section)
 
 
-class EditDialog(QDialog):
-    def __init__(self, degree, divisions, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.ui = Ui_Dialog()
-        self.ui.setupUi(self)
-
-        self.ui.btnAdd.clicked.connect(self.accept)
-        self.ui.btnCancel.clicked.connect(self.reject)
-
-        for r in degree.values():
-            self.ui.cmbDegree.addItem(r.degree, r)
-        for r in divisions.values():
-            self.ui.cmbDivisions.addItem(r.name, r)
-
-    def get_data(self):
-        return {
-            'name': self.ui.txtName.text(),
-            'division': self.ui.cmbDivisions.currentData().id,
-            'birthday': self.ui.dateEdit.date().toPython(),
-            'degree': self.ui.cmbDegree.currentData().id
-        }
-
-
-class UpdateDialog(EditDialog):
-    def __init__(self, degree, divisions, init_data, *args, **kwargs):
-        super().__init__(degree, divisions, *args, **kwargs)
-        self.ui.btnAdd.setText('Изменить')
-
-        officer_name = init_data.user
-        officers_division = divisions[init_data.division].name
-        officer_birthday = init_data.birthday
-        q_date = QtCore.QDate.fromString(officer_birthday, "yyyy-MM-dd")
-        officers_degree = degree[init_data.degree].degree
-
-        self.ui.txtName.setText(officer_name)
-        self.ui.cmbDivisions.setCurrentText(officers_division)
-        self.ui.dateEdit.setDate(q_date)
-        self.ui.cmbDegree.setCurrentText(officers_degree)
-
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -138,10 +97,6 @@ class MainWindow(QMainWindow):
         self.degree = None
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
-        # self.database = DataBase()
-        # self.model = gui_create_model(self.database)
-        # self.ui.tblItems.setModel(self.model)
 
         self.model = ItemsModel()
         self.ui.tblItems.setModel(self.model)
@@ -156,24 +111,22 @@ class MainWindow(QMainWindow):
         self.ui.cmb_degree.currentIndexChanged.connect(self.load_officers)
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
-        self.ui.btn_update.clicked.connect(self.on_btn_update_clicked)
+        self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
 
-    def on_btn_update_clicked(self):
+    def on_btn_edit_clicked(self):
         """  Редактирование данных сотрудника """
 
         remember_choice = QMessageBox()
         remember_choice.setWindowTitle("Редактирование данных сотрудника")
         remember_choice.setText("Выберите сотрудника для редактирования")
         item = self.ui.tblItems.currentIndex()
-
-        if item is None:
-            remember_choice.exec()
-            return
         init_data = item.data(QtCore.Qt.ItemDataRole.UserRole)
 
-        print(init_data)
+        if init_data is None:
+            remember_choice.exec()
+            return
 
-        dialog = UpdateDialog(self.degree, self.divisions, init_data)
+        dialog = UserEditDialog(self.degree, self.divisions, init_data)
         r = dialog.exec()
         if r == 0:
             print('Exit')
@@ -202,7 +155,7 @@ class MainWindow(QMainWindow):
     def on_btn_add_clicked(self):
         """ Добавление нового сотрудника"""
 
-        dialog = EditDialog(self.degree, self.divisions)
+        dialog = UserCreatDialog(self.degree, self.divisions)
         r = dialog.exec()
         if r == 0:
             print('Exit')
