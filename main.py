@@ -6,31 +6,12 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from sqlalchemy.orm import Session
 from PySide6 import QtCore, QtWidgets
 
+from data.create_session import create_session
+from data.fetch_users import fetch_users
 from dialogs.UserCreateDialog import UserCreatDialog
 from dialogs.UserEditDialog import UserEditDialog
 from table_models.list_table_model import ListTableModel
 from mainwindow_ui import Ui_MainWindow
-
-
-def gui_create_model(database):
-    list_users = database.users_list()
-    tbl_list = QStandardItemModel()
-    tbl_list.setHorizontalHeaderLabels(['Id', 'User', 'Birthday', 'Division', 'Degree'])
-    for row in list_users:
-        print(row)
-        user_id, name, birthday, department_id, degree_id = row
-        user_id = QStandardItem(user_id)
-        user_id.setEditable(False)
-        name = QStandardItem(name)
-        name.setEditable(False)
-        birthday = QStandardItem(birthday)
-        birthday.setEditable(False)
-        department_id = QStandardItem(department_id)
-        department_id.setEditable(False)
-        degree_id = QStandardItem(degree_id)
-        degree_id.setEditable(False)
-        tbl_list.appendRow([user_id, name, birthday, department_id, degree_id])
-    return list
 
 
 class MainWindow(QMainWindow):
@@ -45,7 +26,6 @@ class MainWindow(QMainWindow):
         self.ui.tblItems.setModel(self.model)
         self.ui.tblItems.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
-        self.engine = create_engine("sqlite+pysqlite:///database/db_statstrel.db", echo=True)
         self.load_divisions()
         self.load_degree()
         self.load_officers()
@@ -75,7 +55,7 @@ class MainWindow(QMainWindow):
             print('Exit')
             return
         data = dialog.get_data()
-        with Session(self.engine) as s:
+        with create_session() as s:
             query = '''
                         UPDATE officers
                         SET user = :user, 
@@ -105,7 +85,7 @@ class MainWindow(QMainWindow):
             return
 
         data = dialog.get_data()
-        with Session(self.engine) as s:
+        with create_session() as s:
             query = '''
             INSERT INTO officers(user, birthday, division, degree)
             VALUES (:user, :birthday, :division, :degree)
@@ -134,7 +114,7 @@ class MainWindow(QMainWindow):
         r = QMessageBox.question(self, "Подтверждение", "Точно ли хотите удалить")
         if r == QMessageBox.StandardButton.No:
             return
-        with Session(self.engine) as s:
+        with create_session() as s:
             query = """
                 DELETE FROM officers
                 WHERE id = :id
@@ -160,13 +140,8 @@ class MainWindow(QMainWindow):
         else:
             degree_id = 0
 
-        with Session(self.engine) as s:
-            query = """
-                SELECT * FROM officers 
-                WHERE (:did = 0 or division = :did) 
-                AND (:d = 0 or degree = :d)
-                """
-            rows = s.execute(text(query), {"did": division_id, "d": degree_id})
+        with create_session() as s:
+            rows = fetch_users(s, division_id, degree_id)
             for r in rows:
                 users_list.append(r)
 
@@ -177,7 +152,7 @@ class MainWindow(QMainWindow):
 
         self.ui.cmb_degree.addItem('-')
 
-        with Session(self.engine) as s:
+        with create_session() as s:
             self.degree = {}
             query = """SELECT * FROM degree"""
             rows = s.execute(text(query))
@@ -190,7 +165,7 @@ class MainWindow(QMainWindow):
     def load_divisions(self):
         """ Вывод списка подразделений """
 
-        with Session(self.engine) as s:
+        with create_session() as s:
             self.divisions = {}
             query = """SELECT * FROM divisions"""
             rows = s.execute(text(query))

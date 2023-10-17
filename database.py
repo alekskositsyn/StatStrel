@@ -3,6 +3,27 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import datetime
 
 
+# def gui_create_model(database):
+#     list_users = database.users_list()
+#     tbl_list = QStandardItemModel()
+#     tbl_list.setHorizontalHeaderLabels(['Id', 'User', 'Birthday', 'Division', 'Degree'])
+#     for row in list_users:
+#         print(row)
+#         user_id, name, birthday, department_id, degree_id = row
+#         user_id = QStandardItem(user_id)
+#         user_id.setEditable(False)
+#         name = QStandardItem(name)
+#         name.setEditable(False)
+#         birthday = QStandardItem(birthday)
+#         birthday.setEditable(False)
+#         department_id = QStandardItem(department_id)
+#         department_id.setEditable(False)
+#         degree_id = QStandardItem(degree_id)
+#         degree_id.setEditable(False)
+#         tbl_list.appendRow([user_id, name, birthday, department_id, degree_id])
+#     return list
+
+
 class DataBase:
     Base = declarative_base()
 
