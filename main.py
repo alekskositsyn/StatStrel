@@ -8,6 +8,7 @@ from PySide6 import QtCore, QtWidgets
 
 from dialogs.UserCreateDialog import UserCreatDialog
 from dialogs.UserEditDialog import UserEditDialog
+from table_models.list_table_model import ListTableModel
 from mainwindow_ui import Ui_MainWindow
 
 
@@ -32,64 +33,6 @@ def gui_create_model(database):
     return list
 
 
-class ItemsModel(QtCore.QAbstractTableModel):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.users_list = []
-        self.divisions = {}
-        self.degree = {}
-
-    def set_users(self, users_list):
-        self.beginResetModel()
-        self.users_list = users_list
-        self.endResetModel()
-
-    def set_degree(self, degree):
-        self.degree = degree
-
-    def set_divisions(self, divisions):
-        self.divisions = divisions
-
-    def rowCount(self, *args, **kwargs):
-        # return super().rowCount(*args, **kwargs)
-        return len(self.users_list)
-
-    def columnCount(self, *args, **kwargs):
-        return 5
-
-    def data(self, index: QtCore.QModelIndex, role: QtCore.Qt.ItemDataRole):
-        if not index.isValid():
-            return
-        if role == QtCore.Qt.ItemDataRole.DisplayRole:
-            user_info = self.users_list[index.row()]
-            degree = self.degree[user_info.degree].degree
-            division = self.divisions[user_info.division].name
-            column = index.column()
-            if column == 0:
-                return user_info.id
-            elif column == 1:
-                return user_info.user
-            elif column == 2:
-                return user_info.birthday
-            elif column == 3:
-                return division
-            elif column == 4:
-                return degree
-        elif role == QtCore.Qt.ItemDataRole.UserRole:
-            return self.users_list[index.row()]
-
-    def headerData(self, section, orientation: QtCore.Qt.Orientation, role: QtCore.Qt.ItemDataRole):
-        if role == QtCore.Qt.ItemDataRole.DisplayRole:
-            if orientation == QtCore.Qt.Orientation.Horizontal:
-                return {
-                    0: 'Id',
-                    1: 'ФИО',
-                    2: 'Дата рождения',
-                    3: 'Подразделение',
-                    4: 'Уровень подготовки',
-                }.get(section)
-
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -98,7 +41,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.model = ItemsModel()
+        self.model = ListTableModel()
         self.ui.tblItems.setModel(self.model)
         self.ui.tblItems.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
@@ -204,7 +147,7 @@ class MainWindow(QMainWindow):
 
     def load_officers(self):
         """ Вывод списка сотрудников """
-
+        users_list = []
         divisions_data = self.ui.cmb_division.currentData()
         if divisions_data:
             division_id = self.ui.cmb_division.currentData().id
@@ -217,26 +160,17 @@ class MainWindow(QMainWindow):
         else:
             degree_id = 0
 
-        self.users_list = []
-
-        # self.ui.tblItems.clear()
         with Session(self.engine) as s:
             query = """
                 SELECT * FROM officers 
                 WHERE (:did = 0 or division = :did) 
                 AND (:d = 0 or degree = :d)
                 """
-
             rows = s.execute(text(query), {"did": division_id, "d": degree_id})
             for r in rows:
-                # degree_name = self.degree[r.degree].degree
-                # division_name = self.divisions[r.division].name
-                # item = QListWidgetItem(f'{r.id}: {r.user} {r.birthday} {degree_name} {division_name}')
-                # item.setData(QtCore.Qt.ItemDataRole.UserRole, r)
-                # self.ui.tblItems.addItem(item)
-                self.users_list.append(r)
+                users_list.append(r)
 
-        self.model.set_users(self.users_list)
+        self.model.set_users(users_list)
 
     def load_degree(self):
         """ Вывод списка уровня подготовки """
