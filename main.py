@@ -8,6 +8,7 @@ from PySide6 import QtCore, QtWidgets
 
 from data.create_session import create_session
 from data.fetch_users import fetch_users
+from data.insert_user import insert_user
 from dialogs.UserCreateDialog import UserCreatDialog
 from dialogs.UserEditDialog import UserEditDialog
 from table_models.list_table_model import ListTableModel
@@ -86,17 +87,7 @@ class MainWindow(QMainWindow):
 
         data = dialog.get_data()
         with create_session() as s:
-            query = '''
-            INSERT INTO officers(user, birthday, division, degree)
-            VALUES (:user, :birthday, :division, :degree)
-            '''
-            s.execute(text(query), {
-                "user": data["name"],
-                "birthday": data["birthday"],
-                "division": data["division"],
-                "degree": data["degree"]
-            })
-            s.commit()
+            insert_user(s, data)
 
         self.load_officers()
 
