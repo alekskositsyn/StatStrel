@@ -1,11 +1,12 @@
 import sys
 
-from sqlalchemy import text
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6 import QtCore, QtWidgets
 
 from data.create_session import create_session
 from data.delete_user import delete_user
+from data.fetch_all_degree import fetch_all_degree
+from data.fetch_all_divisions import fetch_all_divisions
 from data.fetch_users import fetch_users
 from data.insert_user import insert_user
 from data.update_user import update_user
@@ -118,32 +119,25 @@ class MainWindow(QMainWindow):
 
     def load_degree(self):
         """ Вывод списка уровня подготовки """
-
         self.ui.cmb_degree.addItem('-')
-
         with create_session() as s:
             self.degree = {}
-            query = """SELECT * FROM degree"""
-            rows = s.execute(text(query))
+            rows = fetch_all_degree(s)
             for r in rows:
                 self.degree[r.id] = r
                 self.ui.cmb_degree.addItem(r.degree, r)
-
         self.model.set_degree(self.degree)
 
     def load_divisions(self):
         """ Вывод списка подразделений """
-
+        self.ui.cmb_division.addItem('-')
         with create_session() as s:
             self.divisions = {}
-            query = """SELECT * FROM divisions"""
-            rows = s.execute(text(query))
+            rows = fetch_all_divisions(s)
             for r in rows:
                 self.divisions[r.id] = r
-
         self.model.set_divisions(self.divisions)
 
-        self.ui.cmb_division.addItem('-')
         for division in self.divisions.values():
             self.ui.cmb_division.addItem(division.name, division)
 
