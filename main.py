@@ -7,6 +7,7 @@ from data.create_session import create_session
 from data.delete_user import delete_user
 from data.fetch_all_degree import fetch_all_degree
 from data.fetch_all_divisions import fetch_all_divisions
+from data.fetch_all_tasks import fetch_all_tasks
 from data.fetch_users import fetch_users
 from data.insert_user import insert_user
 from data.update_user import update_user
@@ -31,6 +32,7 @@ class MainWindow(QMainWindow):
         self.load_divisions()
         self.load_degree()
         self.load_officers()
+        self.load_tasks()
 
         self.ui.cmb_division.currentIndexChanged.connect(self.load_officers)
         self.ui.cmb_degree.currentIndexChanged.connect(self.load_officers)
@@ -140,6 +142,17 @@ class MainWindow(QMainWindow):
 
         for division in self.divisions.values():
             self.ui.cmb_division.addItem(division.name, division)
+
+    def load_tasks(self):
+        self.ui.cmbTasks.addItem('-')
+        with create_session() as s:
+            self.tasks = {}
+            rows = fetch_all_tasks(s)
+            for r in rows:
+                self.tasks[r.id] = r
+
+        for task in self.tasks.values():
+            self.ui.cmbTasks.addItem(task.name, task)
 
 
 if __name__ == '__main__':
