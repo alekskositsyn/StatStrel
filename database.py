@@ -39,7 +39,7 @@ class DataBase:
             self.description = description
 
     def __init__(self):
-        self.engine = create_engine('sqlite:///d_base.db3', echo=True, pool_recycle=7200)
+        self.engine = create_engine('sqlite:///database/d_base.db3', echo=True, pool_recycle=7200)
 
         self.Base.metadata.create_all(self.engine)
         Session = sessionmaker(bind=self.engine)
@@ -63,6 +63,7 @@ class DataBase:
     # Функция возвращает список известных пользователей со временем последнего входа.
     def users_list(self):
         query = self.session.query(
+            self.Officers.id,
             self.Officers.name,
             self.Officers.birthday,
             self.Officers.department_id,

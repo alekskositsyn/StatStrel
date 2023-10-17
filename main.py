@@ -1,11 +1,94 @@
 import sys
 
+from PySide6.QtGui import QStandardItemModel, QStandardItem
 from sqlalchemy import create_engine, text
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QListWidgetItem, QMessageBox
 from sqlalchemy.orm import Session
-from PySide6 import QtCore
+from PySide6 import QtCore, QtWidgets
+
+from database import DataBase
 from mainwindow_ui import Ui_MainWindow
 from add_officer_ui import Ui_Dialog
+
+
+def gui_create_model(database):
+    list_users = database.users_list()
+    tbl_list = QStandardItemModel()
+    tbl_list.setHorizontalHeaderLabels(['Id', 'User', 'Birthday', 'Division', 'Degree'])
+    for row in list_users:
+        print(row)
+        user_id, name, birthday, department_id, degree_id = row
+        user_id = QStandardItem(user_id)
+        user_id.setEditable(False)
+        name = QStandardItem(name)
+        name.setEditable(False)
+        birthday = QStandardItem(birthday)
+        birthday.setEditable(False)
+        department_id = QStandardItem(department_id)
+        department_id.setEditable(False)
+        degree_id = QStandardItem(degree_id)
+        degree_id.setEditable(False)
+        tbl_list.appendRow([user_id, name, birthday, department_id, degree_id])
+    return list
+
+
+class ItemsModel(QtCore.QAbstractTableModel):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.users_list = []
+        self.divisions = {}
+        self.degree = {}
+
+    def set_users(self, users_list):
+        self.beginResetModel()
+        print(users_list)
+        self.users_list = users_list
+        self.endResetModel()
+
+    def set_degree(self, degree):
+        self.degree = degree
+
+    def set_divisions(self, divisions):
+        self.divisions = divisions
+
+    def rowCount(self, *args, **kwargs):
+        # return super().rowCount(*args, **kwargs)
+        return len(self.users_list)
+
+    def columnCount(self, *args, **kwargs):
+        return 5
+
+    def data(self, index: QtCore.QModelIndex, role: QtCore.Qt.ItemDataRole):
+        if not index.isValid():
+            return
+        if role == QtCore.Qt.ItemDataRole.DisplayRole:
+            user_info = self.users_list[index.row()]
+            degree = self.degree[user_info.degree].degree
+            division = self.divisions[user_info.division].name
+            column = index.column()
+            if column == 0:
+                return user_info.id
+            elif column == 1:
+                return user_info.user
+            elif column == 2:
+                return user_info.birthday
+            elif column == 3:
+                return division
+            elif column == 4:
+                return degree
+        elif role == QtCore.Qt.ItemDataRole.UserRole:
+            return self.users_list[index.row()]
+
+    def headerData(self, section, orientation: QtCore.Qt.Orientation, role: QtCore.Qt.ItemDataRole):
+        if role == QtCore.Qt.ItemDataRole.DisplayRole:
+            if orientation == QtCore.Qt.Orientation.Horizontal:
+                return {
+                    0: 'Id',
+                    1: 'ФИО',
+                    2: 'Дата рождения',
+                    3: 'Подразделение',
+                    4: 'Уровень подготовки',
+                }.get(section)
 
 
 class EditDialog(QDialog):
@@ -56,6 +139,14 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # self.database = DataBase()
+        # self.model = gui_create_model(self.database)
+        # self.ui.tblItems.setModel(self.model)
+
+        self.model = ItemsModel()
+        self.ui.tblItems.setModel(self.model)
+        self.ui.tblItems.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
         self.engine = create_engine("sqlite+pysqlite:///database/db_statstrel.db", echo=True)
         self.load_divisions()
         self.load_degree()
@@ -73,7 +164,8 @@ class MainWindow(QMainWindow):
         remember_choice = QMessageBox()
         remember_choice.setWindowTitle("Редактирование данных сотрудника")
         remember_choice.setText("Выберите сотрудника для редактирования")
-        item = self.ui.list_table.currentItem()
+        item = self.ui.tblItems.currentIndex()
+
         if item is None:
             remember_choice.exec()
             return
@@ -137,7 +229,7 @@ class MainWindow(QMainWindow):
         remember_choice = QMessageBox()
         remember_choice.setWindowTitle("Удаление")
         remember_choice.setText("Выберите сотрудника для удаления")
-        item = self.ui.list_table.currentItem()
+        item = self.ui.tblItems.currentIndex()
         if item is None:
             remember_choice.exec()
             return
@@ -172,22 +264,26 @@ class MainWindow(QMainWindow):
         else:
             degree_id = 0
 
-        self.ui.list_table.clear()
+        self.users_list = []
+
+        # self.ui.tblItems.clear()
         with Session(self.engine) as s:
             query = """
                 SELECT * FROM officers 
                 WHERE (:did = 0 or division = :did) 
                 AND (:d = 0 or degree = :d)
-                ORDER BY  user
                 """
 
             rows = s.execute(text(query), {"did": division_id, "d": degree_id})
             for r in rows:
-                degree_name = self.degree[r.degree].degree
-                division_name = self.divisions[r.division].name
-                item = QListWidgetItem(f'{r.id}: {r.user} {r.birthday} {degree_name} {division_name}')
-                item.setData(QtCore.Qt.ItemDataRole.UserRole, r)
-                self.ui.list_table.addItem(item)
+                # degree_name = self.degree[r.degree].degree
+                # division_name = self.divisions[r.division].name
+                # item = QListWidgetItem(f'{r.id}: {r.user} {r.birthday} {degree_name} {division_name}')
+                # item.setData(QtCore.Qt.ItemDataRole.UserRole, r)
+                # self.ui.tblItems.addItem(item)
+                self.users_list.append(r)
+
+        self.model.set_users(self.users_list)
 
     def load_degree(self):
         """ Вывод списка уровня подготовки """
@@ -202,6 +298,8 @@ class MainWindow(QMainWindow):
                 self.degree[r.id] = r
                 self.ui.cmb_degree.addItem(r.degree, r)
 
+        self.model.set_degree(self.degree)
+
     def load_divisions(self):
         """ Вывод списка подразделений """
 
@@ -211,6 +309,8 @@ class MainWindow(QMainWindow):
             rows = s.execute(text(query))
             for r in rows:
                 self.divisions[r.id] = r
+
+        self.model.set_divisions(self.divisions)
 
         self.ui.cmb_division.addItem('-')
         for division in self.divisions.values():

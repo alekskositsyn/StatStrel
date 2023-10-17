@@ -24,8 +24,12 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="0" colspan="5">
-        <widget class="QListWidget" name="list_table"/>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="btn_update">
+         <property name="text">
+          <string>Изменить</string>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0">
         <widget class="QPushButton" name="btn_add">
@@ -34,40 +38,24 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="4">
+       <item row="0" column="1">
+        <widget class="QComboBox" name="cmb_exercise"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QComboBox" name="cmb_division"/>
+       </item>
+       <item row="2" column="2">
         <widget class="QPushButton" name="btn_delete">
          <property name="text">
           <string>Удалить</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="btn_update">
-         <property name="text">
-          <string>Изменить</string>
-         </property>
-        </widget>
+       <item row="0" column="0">
+        <widget class="QComboBox" name="cmb_degree"/>
        </item>
-       <item row="0" column="0" colspan="5">
-        <widget class="QFrame" name="frame_2">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QComboBox" name="cmb_division"/>
-          </item>
-          <item>
-           <widget class="QComboBox" name="cmb_exercise"/>
-          </item>
-          <item>
-           <widget class="QComboBox" name="cmb_degree"/>
-          </item>
-         </layout>
-        </widget>
+       <item row="1" column="0" colspan="3">
+        <widget class="QTableView" name="tblItems"/>
        </item>
       </layout>
      </widget>

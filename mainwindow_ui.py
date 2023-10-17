@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
-    QHBoxLayout, QListWidget, QListWidgetItem, QMainWindow,
-    QMenuBar, QPushButton, QSizePolicy, QWidget)
+    QHBoxLayout, QHeaderView, QMainWindow, QMenuBar,
+    QPushButton, QSizePolicy, QTableView, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -34,49 +34,40 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frame)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.list_table = QListWidget(self.frame)
-        self.list_table.setObjectName(u"list_table")
+        self.btn_update = QPushButton(self.frame)
+        self.btn_update.setObjectName(u"btn_update")
 
-        self.gridLayout.addWidget(self.list_table, 1, 0, 1, 5)
+        self.gridLayout.addWidget(self.btn_update, 2, 1, 1, 1)
 
         self.btn_add = QPushButton(self.frame)
         self.btn_add.setObjectName(u"btn_add")
 
         self.gridLayout.addWidget(self.btn_add, 2, 0, 1, 1)
 
+        self.cmb_exercise = QComboBox(self.frame)
+        self.cmb_exercise.setObjectName(u"cmb_exercise")
+
+        self.gridLayout.addWidget(self.cmb_exercise, 0, 1, 1, 1)
+
+        self.cmb_division = QComboBox(self.frame)
+        self.cmb_division.setObjectName(u"cmb_division")
+
+        self.gridLayout.addWidget(self.cmb_division, 0, 2, 1, 1)
+
         self.btn_delete = QPushButton(self.frame)
         self.btn_delete.setObjectName(u"btn_delete")
 
-        self.gridLayout.addWidget(self.btn_delete, 2, 4, 1, 1)
+        self.gridLayout.addWidget(self.btn_delete, 2, 2, 1, 1)
 
-        self.btn_update = QPushButton(self.frame)
-        self.btn_update.setObjectName(u"btn_update")
-
-        self.gridLayout.addWidget(self.btn_update, 2, 2, 1, 1)
-
-        self.frame_2 = QFrame(self.frame)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame_2)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.cmb_division = QComboBox(self.frame_2)
-        self.cmb_division.setObjectName(u"cmb_division")
-
-        self.horizontalLayout_2.addWidget(self.cmb_division)
-
-        self.cmb_exercise = QComboBox(self.frame_2)
-        self.cmb_exercise.setObjectName(u"cmb_exercise")
-
-        self.horizontalLayout_2.addWidget(self.cmb_exercise)
-
-        self.cmb_degree = QComboBox(self.frame_2)
+        self.cmb_degree = QComboBox(self.frame)
         self.cmb_degree.setObjectName(u"cmb_degree")
 
-        self.horizontalLayout_2.addWidget(self.cmb_degree)
+        self.gridLayout.addWidget(self.cmb_degree, 0, 0, 1, 1)
 
+        self.tblItems = QTableView(self.frame)
+        self.tblItems.setObjectName(u"tblItems")
 
-        self.gridLayout.addWidget(self.frame_2, 0, 0, 1, 5)
+        self.gridLayout.addWidget(self.tblItems, 1, 0, 1, 3)
 
 
         self.horizontalLayout.addWidget(self.frame)
@@ -94,8 +85,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.btn_update.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
         self.btn_add.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
         self.btn_delete.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
-        self.btn_update.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
     # retranslateUi
 
