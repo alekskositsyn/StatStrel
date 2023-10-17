@@ -9,6 +9,7 @@ from PySide6 import QtCore, QtWidgets
 from data.create_session import create_session
 from data.fetch_users import fetch_users
 from data.insert_user import insert_user
+from data.update_user import update_user
 from dialogs.UserCreateDialog import UserCreatDialog
 from dialogs.UserEditDialog import UserEditDialog
 from table_models.list_table_model import ListTableModel
@@ -55,24 +56,10 @@ class MainWindow(QMainWindow):
         if r == 0:
             print('Exit')
             return
+        user_id = init_data.id
         data = dialog.get_data()
         with create_session() as s:
-            query = '''
-                        UPDATE officers
-                        SET user = :user, 
-                            birthday = :birthday,
-                            division = :division, 
-                            degree = :degree
-                        WHERE id = :id
-                        '''
-            s.execute(text(query), {
-                "id": init_data.id,
-                "user": data["name"],
-                "birthday": data["birthday"],
-                "division": data["division"],
-                "degree": data["degree"]
-            })
-            s.commit()
+            update_user(s, user_id, data)
 
         self.load_officers()
 
