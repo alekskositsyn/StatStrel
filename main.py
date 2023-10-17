@@ -1,12 +1,11 @@
 import sys
 
-from PySide6.QtGui import QStandardItemModel, QStandardItem
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
-from sqlalchemy.orm import Session
 from PySide6 import QtCore, QtWidgets
 
 from data.create_session import create_session
+from data.delete_user import delete_user
 from data.fetch_users import fetch_users
 from data.insert_user import insert_user
 from data.update_user import update_user
@@ -40,7 +39,6 @@ class MainWindow(QMainWindow):
 
     def on_btn_edit_clicked(self):
         """  Редактирование данных сотрудника """
-
         remember_choice = QMessageBox()
         remember_choice.setWindowTitle("Редактирование данных сотрудника")
         remember_choice.setText("Выберите сотрудника для редактирования")
@@ -58,9 +56,9 @@ class MainWindow(QMainWindow):
             return
         user_id = init_data.id
         data = dialog.get_data()
+
         with create_session() as s:
             update_user(s, user_id, data)
-
         self.load_officers()
 
     def on_btn_add_clicked(self):
@@ -75,7 +73,6 @@ class MainWindow(QMainWindow):
         data = dialog.get_data()
         with create_session() as s:
             insert_user(s, data)
-
         self.load_officers()
 
     def on_btn_remove_clicked(self):
@@ -84,23 +81,17 @@ class MainWindow(QMainWindow):
         remember_choice.setWindowTitle("Удаление")
         remember_choice.setText("Выберите сотрудника для удаления")
         item = self.ui.tblItems.currentIndex()
-        if item is None:
+        data = item.data(QtCore.Qt.ItemDataRole.UserRole)
+
+        if data is None:
             remember_choice.exec()
             return
-        data = item.data(QtCore.Qt.ItemDataRole.UserRole)
         item_id = data.id
         r = QMessageBox.question(self, "Подтверждение", "Точно ли хотите удалить")
         if r == QMessageBox.StandardButton.No:
             return
         with create_session() as s:
-            query = """
-                DELETE FROM officers
-                WHERE id = :id
-            """
-
-            s.execute(text(query), {"id": item_id})
-            s.commit()
-
+            delete_user(s, item_id)
         self.load_officers()
 
     def load_officers(self):
