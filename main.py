@@ -159,27 +159,28 @@ class MainWindow(QMainWindow):
 
     def draw_bar_chart(self):
         chart = QtCharts.QChart()
+        chart.setAnimationOptions(QtCharts.QChart.AnimationOption.SeriesAnimations)
 
         for division in self.divisions.values():
             with create_session() as s:
                 rows = fetch_task_4(s, division.id)
                 result = calc_mid_divisions(rows)
-                lst_rows = list(rows)
-                users_count = len(lst_rows)
-                # print(lst_rows, users_count)
-            # print(division.name)
-            series = QtCharts.QBarSeries()
             bar_set = QtCharts.QBarSet(division.name)
             bar_set.append(result)
+            bar_set.setLabelColor('#3e3e3e')
+            # bar_set.setColor("#3e3e3e")
+            series = QtCharts.QBarSeries()
+            series.setLabelsVisible()
+            series.setLabelsPosition(QtCharts.QAbstractBarSeries.LabelsPosition.LabelsCenter)
             series.append(bar_set)
 
             chart.addSeries(series)
-        chart.createDefaultAxes()
-        # Создаем названия столбцам
-        # axis = QtCharts.QBarCategoryAxis()
-        # axis.append(['1 бат', '2 бат', '3 бат', '4 бат'])
-        # chart.setAxisX(axis)
-        # series.attachAxis(axis)
+            chart.createDefaultAxes()
+            # Создаем названия столбцам
+            axis = QtCharts.QBarCategoryAxis()
+            axis.append(['Подразделения'])
+            chart.setAxisX(axis)
+            series.attachAxis(axis)
 
         self.ui.chartView.setChart(chart)
 
