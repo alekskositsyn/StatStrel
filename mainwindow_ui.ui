@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>846</width>
+    <width>890</width>
     <height>684</height>
    </rect>
   </property>
@@ -28,9 +28,6 @@
         <enum>QFrame::Raised</enum>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="1" column="0">
-         <widget class="QTableView" name="tblItems"/>
-        </item>
         <item row="2" column="0">
          <widget class="QFrame" name="frame_4">
           <property name="frameShape">
@@ -73,19 +70,8 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Подразделение</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Уровень подготовки</string>
-             </property>
-            </widget>
+           <item row="1" column="0">
+            <widget class="QComboBox" name="cmb_division"/>
            </item>
            <item row="0" column="2">
             <widget class="QLabel" name="label_3">
@@ -94,19 +80,38 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QComboBox" name="cmb_division"/>
+           <item row="1" column="2">
+            <widget class="QComboBox" name="cmbTasks"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Уровень подготовки</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Подразделение</string>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
             <widget class="QComboBox" name="cmb_degree"/>
            </item>
-           <item row="1" column="2">
-            <widget class="QComboBox" name="cmbTasks"/>
-           </item>
           </layout>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QTableView" name="tblItems"/>
+        </item>
        </layout>
+      </widget>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
       </widget>
       <widget class="QFrame" name="frame_2">
        <property name="frameShape">
@@ -130,7 +135,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>846</width>
+     <width>890</width>
      <height>22</height>
     </rect>
    </property>

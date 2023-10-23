@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(846, 684)
+        MainWindow.resize(890, 684)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout_4 = QGridLayout(self.centralwidget)
@@ -39,11 +39,6 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout_3 = QGridLayout(self.frame)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.tblItems = QTableView(self.frame)
-        self.tblItems.setObjectName(u"tblItems")
-
-        self.gridLayout_3.addWidget(self.tblItems, 1, 0, 1, 1)
-
         self.frame_4 = QFrame(self.frame)
         self.frame_4.setObjectName(u"frame_4")
         self.frame_4.setFrameShape(QFrame.StyledPanel)
@@ -74,40 +69,50 @@ class Ui_MainWindow(object):
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frame_3)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.label = QLabel(self.frame_3)
-        self.label.setObjectName(u"label")
+        self.cmb_division = QComboBox(self.frame_3)
+        self.cmb_division.setObjectName(u"cmb_division")
 
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
-
-        self.label_2 = QLabel(self.frame_3)
-        self.label_2.setObjectName(u"label_2")
-
-        self.gridLayout.addWidget(self.label_2, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.cmb_division, 1, 0, 1, 1)
 
         self.label_3 = QLabel(self.frame_3)
         self.label_3.setObjectName(u"label_3")
 
         self.gridLayout.addWidget(self.label_3, 0, 2, 1, 1)
 
-        self.cmb_division = QComboBox(self.frame_3)
-        self.cmb_division.setObjectName(u"cmb_division")
+        self.cmbTasks = QComboBox(self.frame_3)
+        self.cmbTasks.setObjectName(u"cmbTasks")
 
-        self.gridLayout.addWidget(self.cmb_division, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.cmbTasks, 1, 2, 1, 1)
+
+        self.label_2 = QLabel(self.frame_3)
+        self.label_2.setObjectName(u"label_2")
+
+        self.gridLayout.addWidget(self.label_2, 0, 1, 1, 1)
+
+        self.label = QLabel(self.frame_3)
+        self.label.setObjectName(u"label")
+
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
         self.cmb_degree = QComboBox(self.frame_3)
         self.cmb_degree.setObjectName(u"cmb_degree")
 
         self.gridLayout.addWidget(self.cmb_degree, 1, 1, 1, 1)
 
-        self.cmbTasks = QComboBox(self.frame_3)
-        self.cmbTasks.setObjectName(u"cmbTasks")
-
-        self.gridLayout.addWidget(self.cmbTasks, 1, 2, 1, 1)
-
 
         self.gridLayout_3.addWidget(self.frame_3, 0, 0, 1, 1)
 
+        self.tblItems = QTableView(self.frame)
+        self.tblItems.setObjectName(u"tblItems")
+
+        self.gridLayout_3.addWidget(self.tblItems, 1, 0, 1, 1)
+
         self.splitter.addWidget(self.frame)
+        self.line = QFrame(self.splitter)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.VLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+        self.splitter.addWidget(self.line)
         self.frame_2 = QFrame(self.splitter)
         self.frame_2.setObjectName(u"frame_2")
         self.frame_2.setFrameShape(QFrame.StyledPanel)
@@ -126,7 +131,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 846, 22))
+        self.menubar.setGeometry(QRect(0, 0, 890, 22))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -139,8 +144,8 @@ class Ui_MainWindow(object):
         self.btn_add.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
         self.btn_update.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
         self.btn_delete.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0434\u0440\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u0438\u0435", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0440\u043e\u0432\u0435\u043d\u044c \u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0438", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434 \u0443\u043f\u0440\u0430\u0436\u043d\u0435\u043d\u0438\u044f", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0440\u043e\u0432\u0435\u043d\u044c \u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0438", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0434\u0440\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u0438\u0435", None))
     # retranslateUi
 
