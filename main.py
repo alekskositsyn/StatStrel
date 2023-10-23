@@ -1,13 +1,15 @@
 import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
-from PySide6 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets, QtCharts
 
+from common.calc_mid_divisions import calc_mid_divisions
 from data.create_session import create_session
 from data.delete_user import delete_user
 from data.fetch_all_degree import fetch_all_degree
 from data.fetch_all_divisions import fetch_all_divisions
 from data.fetch_all_tasks import fetch_all_tasks
+from data.fetch_task_4 import fetch_task_4
 from data.fetch_users import fetch_users
 from data.insert_user import insert_user
 from data.update_user import update_user
@@ -118,6 +120,7 @@ class MainWindow(QMainWindow):
                 users_list.append(r)
 
         self.model.set_users(users_list)
+        self.draw_bar_chart()
 
     def load_degree(self):
         """ Вывод списка уровня подготовки """
@@ -153,6 +156,32 @@ class MainWindow(QMainWindow):
 
         for task in self.tasks.values():
             self.ui.cmbTasks.addItem(task.name, task)
+
+    def draw_bar_chart(self):
+        chart = QtCharts.QChart()
+
+        for division in self.divisions.values():
+            with create_session() as s:
+                rows = fetch_task_4(s, division.id)
+                result = calc_mid_divisions(rows)
+                lst_rows = list(rows)
+                users_count = len(lst_rows)
+                # print(lst_rows, users_count)
+            # print(division.name)
+            series = QtCharts.QBarSeries()
+            bar_set = QtCharts.QBarSet(division.name)
+            bar_set.append(result)
+            series.append(bar_set)
+
+            chart.addSeries(series)
+        chart.createDefaultAxes()
+        # Создаем названия столбцам
+        # axis = QtCharts.QBarCategoryAxis()
+        # axis.append(['1 бат', '2 бат', '3 бат', '4 бат'])
+        # chart.setAxisX(axis)
+        # series.attachAxis(axis)
+
+        self.ui.chartView.setChart(chart)
 
 
 if __name__ == '__main__':
