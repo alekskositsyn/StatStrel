@@ -16,6 +16,7 @@ from data.insert_user import insert_user
 from data.update_user import update_user
 from dialogs.UserCreateDialog import UserCreatDialog
 from dialogs.UserEditDialog import UserEditDialog
+from dialogs.UserProfileDialog import UserProfileDialog
 from table_models.list_table_model import ListTableModel
 from mainwindow_ui import Ui_MainWindow
 
@@ -23,6 +24,7 @@ from mainwindow_ui import Ui_MainWindow
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.tasks = None
         self.divisions = None
         self.degree = None
         self.ui = Ui_MainWindow()
@@ -31,6 +33,7 @@ class MainWindow(QMainWindow):
         self.model = ListTableModel()
         self.ui.tblItems.setModel(self.model)
         self.ui.tblItems.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+        self.ui.tblItems.doubleClicked.connect(self.on_btn_profile_clicked)
 
         self.load_divisions()
         self.load_degree()
@@ -42,6 +45,23 @@ class MainWindow(QMainWindow):
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
         self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
+        self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
+
+    def on_btn_profile_clicked(self):
+        """  Профиль сотрудника """
+        remember_choice = QMessageBox()
+        remember_choice.setWindowTitle("Профиль сотрудника")
+        remember_choice.setText("Выберите сотрудника")
+
+        item = self.ui.tblItems.currentIndex()
+        init_data = item.data(QtCore.Qt.ItemDataRole.UserRole)
+
+        if init_data is None:
+            remember_choice.exec()
+            return
+
+        dialog = UserProfileDialog(self.degree, self.divisions, init_data, self.tasks)
+        dialog.exec()
 
     def on_btn_edit_clicked(self):
         """  Редактирование данных сотрудника """
@@ -154,9 +174,10 @@ class MainWindow(QMainWindow):
             rows = fetch_all_tasks(s)
             for r in rows:
                 self.tasks[r.id] = r
+                self.ui.cmbTasks.addItem(r.name, r)
 
-        for task in self.tasks.values():
-            self.ui.cmbTasks.addItem(task.name, task)
+        # for task in self.tasks.values():
+        #     self.ui.cmbTasks.addItem(task.name, task)
 
     def draw_divisions_bar_chart(self):
         chart = QtCharts.QChart()
