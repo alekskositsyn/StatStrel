@@ -29,7 +29,7 @@ class UserProfileDialog(QDialog):
         for t in tasks.values():
             self.ui.cmbTasks.addItem(t.name, t)
 
-        self.ui.cmbTasks.currentIndexChanged.connect(self.draw_line_chart)
+        self.draw_line_chart()
 
     def draw_line_chart(self):
         series = QtCharts.QLineSeries()
@@ -50,18 +50,20 @@ class UserProfileDialog(QDialog):
         chart.createDefaultAxes()
 
         axis_x.setFormat("dd.MM.yyyy")
-        # axis_x.setTickCount(5)
+        axis_x.setTickCount(10)
         axis_x.setMax(QtCore.QDateTime.currentDateTime().addDays(30))
         axis_x.setMin(first_date[1])
         axis_x.setTitleText("Дата")
         series.setName('Num 4')
+        series.setPointsVisible(True)
+        series.setMarkerSize(4)
 
         # Setting Y-axis
         axis_y = QtCharts.QValueAxis()
         # axis_y.setTickCount(6)
         axis_y.setLabelFormat("%i")
         axis_y.setTitleText("Попаданий")
-        axis_y.setMax(4)
+        axis_y.setMax(5)
         axis_y.setMin(0)
 
         chart.setAxisX(axis_x, series)
