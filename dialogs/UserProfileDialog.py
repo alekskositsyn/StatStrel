@@ -48,6 +48,8 @@ class UserProfileDialog(QDialog):
         chart = QtCharts.QChart()
         chart.addSeries(series)
         chart.createDefaultAxes()
+        chart.setAnimationOptions(QtCharts.QChart.AnimationOption.SeriesAnimations)
+        chart.setTheme(QtCharts.QChart.ChartTheme.ChartThemeDark)
 
         axis_x.setFormat("dd.MM.yyyy")
         axis_x.setTickCount(10)
