@@ -52,7 +52,7 @@ class UserProfileDialog(QDialog):
         chart.setTheme(QtCharts.QChart.ChartTheme.ChartThemeDark)
 
         axis_x.setFormat("dd.MM.yyyy")
-        axis_x.setTickCount(10)
+        # axis_x.setTickCount(10)
         axis_x.setMax(QtCore.QDateTime.currentDateTime().addDays(30))
         axis_x.setMin(first_date[1])
         axis_x.setTitleText("Дата")

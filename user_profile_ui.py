@@ -17,21 +17,26 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
-    QGridLayout, QLabel, QLineEdit, QSizePolicy,
-    QSplitter, QVBoxLayout, QWidget)
+    QGridLayout, QHBoxLayout, QLabel, QLineEdit,
+    QSizePolicy, QSplitter, QVBoxLayout, QWidget)
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(816, 478)
+        Dialog.resize(849, 286)
         self.gridLayout_2 = QGridLayout(Dialog)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.splitter = QSplitter(Dialog)
         self.splitter.setObjectName(u"splitter")
         self.splitter.setOrientation(Qt.Horizontal)
-        self.frame = QFrame(self.splitter)
+        self.left_widget = QWidget(self.splitter)
+        self.left_widget.setObjectName(u"left_widget")
+        self.horizontalLayout = QHBoxLayout(self.left_widget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.frame = QFrame(self.left_widget)
         self.frame.setObjectName(u"frame")
+        self.frame.setMinimumSize(QSize(210, 250))
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self.frame)
@@ -98,7 +103,10 @@ class Ui_Dialog(object):
 
         self.verticalLayout.addWidget(self.cmbTasks)
 
-        self.splitter.addWidget(self.frame)
+
+        self.horizontalLayout.addWidget(self.frame)
+
+        self.splitter.addWidget(self.left_widget)
         self.line = QFrame(self.splitter)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.VLine)
@@ -106,21 +114,22 @@ class Ui_Dialog(object):
         self.splitter.addWidget(self.line)
         self.frame_2 = QFrame(self.splitter)
         self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setMinimumSize(QSize(600, 250))
         self.frame_2.setFrameShape(QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frame_2)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.userChartView = QChartView(self.frame_2)
+        self.userChartView.setObjectName(u"userChartView")
+
+        self.gridLayout.addWidget(self.userChartView, 1, 0, 1, 1)
+
         self.lblName_5 = QLabel(self.frame_2)
         self.lblName_5.setObjectName(u"lblName_5")
         self.lblName_5.setFont(font)
         self.lblName_5.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.lblName_5, 0, 0, 1, 1)
-
-        self.userChartView = QChartView(self.frame_2)
-        self.userChartView.setObjectName(u"userChartView")
-
-        self.gridLayout.addWidget(self.userChartView, 1, 0, 1, 1)
 
         self.splitter.addWidget(self.frame_2)
 
