@@ -60,6 +60,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.tblItems = QTableView(self.frame)
         self.tblItems.setObjectName(u"tblItems")
+        self.tblItems.setFrameShadow(QFrame.Plain)
+        self.tblItems.setLineWidth(1)
+        self.tblItems.setAlternatingRowColors(True)
+        # self.tblItems.setSortingEnabled(True)
+        self.tblItems.horizontalHeader().setCascadingSectionResizes(False)
+        # self.tblItems.horizontalHeader().setProperty("showSortIndicator", False)
+        self.tblItems.horizontalHeader().setStretchLastSection(False)
+        self.tblItems.verticalHeader().setVisible(False)
+        self.tblItems.verticalHeader().setProperty("showSortIndicator", False)
+        self.tblItems.verticalHeader().setStretchLastSection(False)
 
         self.horizontalLayout.addWidget(self.tblItems)
 

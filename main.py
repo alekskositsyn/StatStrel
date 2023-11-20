@@ -1,6 +1,7 @@
 import sys
 
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QBrush
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6 import QtCore, QtWidgets, QtCharts
 
@@ -233,6 +234,8 @@ class MainWindow(QMainWindow):
         # series.attachAxis(axis)
 
         self.ui.chartView.setChart(chart)
+
+
 
 
 if __name__ == '__main__':

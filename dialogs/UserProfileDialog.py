@@ -21,9 +21,14 @@ class UserProfileDialog(QDialog):
         officers_degree = degree[init_data.degree].degree
 
         self.ui.txtName.setText(officer_name)
+        self.ui.txtName.setEnabled(False)
         self.ui.txtDivision.setText(officers_division)
+        self.ui.txtDivision.setEnabled(False)
         self.ui.txtBDate.setText(officer_birthday)
+        self.ui.txtBDate.setEnabled(False)
         self.ui.txtDegree.setText(officers_degree)
+        self.ui.txtDegree.setEnabled(False)
+
         self.ui.cmbTasks.addItem('-')
 
         for t in tasks.values():
