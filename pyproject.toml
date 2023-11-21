@@ -6,7 +6,7 @@ authors = ["alekskositsyn <61062623+alekskositsyn@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.12"
+python = "~3.12"
 PySide6 = "^6.6.0"
 SQLAlchemy = "^2.0.23"
 
