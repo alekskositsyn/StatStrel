@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-PATH_DB = "D:\Projects\StatStrel\database\db_statstrel.db"
+PATH_DB = "D:/Projects/StatStrel/database/db_statstrel.db"
 
 
 def create_session() -> Session:
