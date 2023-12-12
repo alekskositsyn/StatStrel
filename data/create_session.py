@@ -9,3 +9,9 @@ def create_session() -> Session:
     engine = create_engine(f"sqlite+pysqlite:///{PATH_DB}", echo=False)
     s = Session(engine)
     return s
+
+
+def create_session_with_mysql() -> Session:
+    engine = create_engine(settings.DATABASE_URL, echo=True)
+    s = Session(engine)
+    return s
