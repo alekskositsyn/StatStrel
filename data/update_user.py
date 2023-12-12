@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 
 def update_user(s: Session, user_id, data):
-    query = '''
+    stmt = '''
                 UPDATE officers
                 SET user = :user, 
                     birthday = :birthday,
@@ -11,7 +11,7 @@ def update_user(s: Session, user_id, data):
                     degree = :degree
                 WHERE id = :id
                             '''
-    s.execute(text(query), {
+    s.execute(text(stmt), {
         "id": user_id,
         "user": data["name"],
         "birthday": data["birthday"],

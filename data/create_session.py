@@ -1,5 +1,6 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
+from config import settings
 
 PATH_DB = "D:/Projects/StatStrel/database/db_statstrel.db"
 
