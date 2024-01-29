@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from config import settings
 
@@ -11,7 +11,7 @@ def create_session() -> Session:
     return s
 
 
-def create_session_with_mysql() -> Session:
+def create_session_mysql() -> Session:
     engine = create_engine(settings.DATABASE_URL, echo=True)
     s = Session(engine)
     return s
