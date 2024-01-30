@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>361</height>
+    <height>408</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <widget class="QWidget" name="left_widget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QTableView" name="tableView">
+       <widget class="QTableView" name="table_user_profile">
         <property name="minimumSize">
          <size>
           <width>210</width>
@@ -51,12 +51,13 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
        <widget class="QLabel" name="lblName_5">
         <property name="font">
          <font>
-          <strikeout>false</strikeout>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -67,15 +68,38 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QChartView" name="userChartView"/>
+      <item row="0" column="1">
+       <widget class="QLabel" name="lblBDate">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>08.00.2134</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
       </item>
-      <item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QChartView" name="userChartView">
+        <property name="minimumSize">
+         <size>
+          <width>580</width>
+          <height>220</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
        <widget class="QFrame" name="frame">
         <property name="minimumSize">
          <size>
           <width>551</width>
-          <height>88</height>
+          <height>45</height>
          </size>
         </property>
         <property name="frameShape">
@@ -93,44 +117,37 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout_2">
-            <item row="0" column="0">
-             <widget class="QLabel" name="lblName">
-              <property name="font">
-               <font>
-                <strikeout>false</strikeout>
-               </font>
-              </property>
-              <property name="text">
-               <string>ФИО сотрудника</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="txtName"/>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="lblName_2">
-              <property name="font">
-               <font>
-                <strikeout>false</strikeout>
-               </font>
-              </property>
-              <property name="text">
-               <string>Подразделение</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="txtDivision"/>
-            </item>
-           </layout>
+           <widget class="QLabel" name="lblName_2">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>10</y>
+              <width>87</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="text">
+             <string>Подразделение</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="txtDivision">
+            <property name="geometry">
+             <rect>
+              <x>103</x>
+              <y>10</y>
+              <width>132</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -141,44 +158,37 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout_3">
-            <item row="0" column="0">
-             <widget class="QLabel" name="lblName_3">
-              <property name="font">
-               <font>
-                <strikeout>false</strikeout>
-               </font>
-              </property>
-              <property name="text">
-               <string>Дата рождения</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" colspan="2">
-             <widget class="QLabel" name="lblName_4">
-              <property name="font">
-               <font>
-                <strikeout>false</strikeout>
-               </font>
-              </property>
-              <property name="text">
-               <string>Стрелковый уровень</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QLineEdit" name="txtDegree"/>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLineEdit" name="txtBDate"/>
-            </item>
-           </layout>
+           <widget class="QLabel" name="lblName_4">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>10</y>
+              <width>116</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="text">
+             <string>Стрелковый уровень</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="txtDegree">
+            <property name="geometry">
+             <rect>
+              <x>132</x>
+              <y>10</y>
+              <width>132</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
           </widget>
          </item>
         </layout>
