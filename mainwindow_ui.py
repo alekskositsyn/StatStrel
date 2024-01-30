@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow_ui.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.2
+## Created by: Qt User Interface Compiler version 6.6.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -63,9 +63,9 @@ class Ui_MainWindow(object):
         self.tblItems.setFrameShadow(QFrame.Plain)
         self.tblItems.setLineWidth(1)
         self.tblItems.setAlternatingRowColors(True)
-        # self.tblItems.setSortingEnabled(True)
+        self.tblItems.setSortingEnabled(True)
         self.tblItems.horizontalHeader().setCascadingSectionResizes(False)
-        # self.tblItems.horizontalHeader().setProperty("showSortIndicator", False)
+        self.tblItems.horizontalHeader().setProperty("showSortIndicator", False)
         self.tblItems.horizontalHeader().setStretchLastSection(False)
         self.tblItems.verticalHeader().setVisible(False)
         self.tblItems.verticalHeader().setProperty("showSortIndicator", False)

@@ -36,13 +36,13 @@ class MainWindow(QMainWindow):
         self.ui.tblItems.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
         self.ui.tblItems.doubleClicked.connect(self.on_btn_profile_clicked)
 
-        self.load_divisions()
+        self.load_groups()
         self.load_degree()
-        self.load_officers()
+        self.load_users()
         self.load_tasks()
 
-        self.ui.cmb_division.currentIndexChanged.connect(self.load_officers)
-        self.ui.cmb_degree.currentIndexChanged.connect(self.load_officers)
+        self.ui.cmb_division.currentIndexChanged.connect(self.load_users)
+        self.ui.cmb_degree.currentIndexChanged.connect(self.load_users)
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
         self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
@@ -86,7 +86,7 @@ class MainWindow(QMainWindow):
 
         with create_session() as s:
             update_user(s, user_id, data)
-        self.load_officers()
+        self.load_users()
 
     def on_btn_add_clicked(self):
         """ Добавление нового сотрудника"""
@@ -100,7 +100,7 @@ class MainWindow(QMainWindow):
         data = dialog.get_data()
         with create_session() as s:
             insert_user(s, data)
-        self.load_officers()
+        self.load_users()
 
     def on_btn_remove_clicked(self):
         """ Удаление сотрудника """
@@ -119,9 +119,9 @@ class MainWindow(QMainWindow):
             return
         with create_session() as s:
             delete_user(s, item_id)
-        self.load_officers()
+        self.load_users()
 
-    def load_officers(self):
+    def load_users(self):
         """ Вывод списка сотрудников """
         users_list = []
         divisions_data = self.ui.cmb_division.currentData()
@@ -155,7 +155,7 @@ class MainWindow(QMainWindow):
                 self.ui.cmb_degree.addItem(r.degree, r)
         self.model.set_degree(self.degree)
 
-    def load_divisions(self):
+    def load_groups(self):
         """ Вывод списка подразделений """
         self.ui.cmb_division.addItem('-')
         with create_session() as s:

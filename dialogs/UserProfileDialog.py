@@ -29,10 +29,10 @@ class UserProfileDialog(QDialog):
         self.ui.txtDegree.setText(officers_degree)
         self.ui.txtDegree.setEnabled(False)
 
-        self.ui.cmbTasks.addItem('-')
+        # self.ui.cmbTasks.addItem('-')
 
-        for t in tasks.values():
-            self.ui.cmbTasks.addItem(t.name, t)
+        # for t in tasks.values():
+        #     self.ui.cmbTasks.addItem(t.name, t)
 
         self.draw_line_chart()
 
