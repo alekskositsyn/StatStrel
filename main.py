@@ -41,9 +41,9 @@ class MainWindow(QMainWindow):
         self.load_users()
         # self.load_tasks()
         #
-        # self.ui.cmb_division.currentIndexChanged.connect(self.load_users)
+        self.ui.cmb_division.currentIndexChanged.connect(self.load_users)
         # self.ui.cmb_degree.currentIndexChanged.connect(self.load_users)
-        # self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
+        self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
         # self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
         # self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
         # self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
@@ -91,14 +91,14 @@ class MainWindow(QMainWindow):
     def on_btn_add_clicked(self):
         """ Добавление нового сотрудника"""
 
-        dialog = UserCreatDialog(self.degree, self.divisions)
+        dialog = UserCreatDialog(self.divisions)
         r = dialog.exec()
         if r == 0:
             print('Exit')
             return
 
         data = dialog.get_data()
-        with create_session() as s:
+        with create_session_mysql() as s:
             insert_user(s, data)
         self.load_users()
 

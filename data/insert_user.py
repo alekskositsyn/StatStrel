@@ -4,13 +4,16 @@ from sqlalchemy.orm import Session
 
 def insert_user(s: Session, data):
     stmt = '''
-                INSERT INTO officers(user, birthday, division, degree)
-                VALUES (:user, :birthday, :division, :degree)
+                INSERT INTO user(first_name, middle_name, last_name, birth_date, group_id, identity_number, is_operator)
+                VALUES (:first_name, :middle_name, :last_name, :birth_date, :group_id, :identity_number, :is_operator)
                 '''
     s.execute(text(stmt), {
-        "user": data["name"],
-        "birthday": data["birthday"],
-        "division": data["division"],
-        "degree": data["degree"]
+        "first_name": data["first_name"],
+        "middle_name": data["middle_name"],
+        "last_name": data["last_name"],
+        "birth_date": data["birth_date"],
+        "group_id": data["group_id"],
+        "identity_number": data["identity_number"],
+        "is_operator": data["is_operator"],
     })
     s.commit()
