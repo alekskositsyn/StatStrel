@@ -15,8 +15,8 @@ class ListTableModel(QtCore.QAbstractTableModel):
         self.users_list = users_list
         self.endResetModel()
 
-    def set_degree(self, degree):
-        self.degree = degree
+    # def set_degree(self, degree):
+    #     self.degree = degree
 
     def set_divisions(self, divisions):
         self.divisions = divisions
@@ -26,26 +26,32 @@ class ListTableModel(QtCore.QAbstractTableModel):
         return len(self.users_list)
 
     def columnCount(self, *args, **kwargs):
-        return 5
+        return 6
 
     def data(self, index: QtCore.QModelIndex, role: QtCore.Qt.ItemDataRole):
         if not index.isValid():
             return
         if role == QtCore.Qt.ItemDataRole.DisplayRole:
             user_info = self.users_list[index.row()]
-            degree = self.degree[user_info.degree].degree
-            division = self.divisions[user_info.division].name
+            # degree = self.degree[user_info.degree].degree
+            division = self.divisions[user_info.group_id].name
             column = index.column()
             if column == 0:
                 return user_info.id
             elif column == 1:
-                return user_info.user
+                return user_info.first_name
             elif column == 2:
-                return user_info.birthday
+                return user_info.middle_name
             elif column == 3:
-                return division
+                return user_info.last_name
             elif column == 4:
-                return degree
+                if user_info.birth_date is None:
+                    return "Неизвестна"
+                return str(user_info.birth_date)
+            elif column == 5:
+                return division
+            # elif column == 6:
+            #     return degree
         elif role == QtCore.Qt.ItemDataRole.UserRole:
             return self.users_list[index.row()]
 
@@ -54,8 +60,10 @@ class ListTableModel(QtCore.QAbstractTableModel):
             if orientation == QtCore.Qt.Orientation.Horizontal:
                 return {
                     0: 'Id',
-                    1: 'ФИО',
-                    2: 'Дата рождения',
-                    3: 'Подразделение',
-                    4: 'Уровень подготовки',
+                    1: 'Фамилия',
+                    2: 'Имя',
+                    3: 'Отчество',
+                    4: 'Дата рождения',
+                    5: 'Подразделение',
+                    # 4: 'Уровень подготовки',
                 }.get(section)

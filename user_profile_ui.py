@@ -17,14 +17,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QGridLayout,
-    QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QSizePolicy, QTableView, QWidget)
+    QHBoxLayout, QHeaderView, QLabel, QSizePolicy,
+    QTableView, QWidget)
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(961, 408)
+        Dialog.resize(861, 505)
         self.horizontalLayout_3 = QHBoxLayout(Dialog)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.left_widget = QWidget(Dialog)
@@ -33,7 +33,11 @@ class Ui_Dialog(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.table_user_profile = QTableView(self.left_widget)
         self.table_user_profile.setObjectName(u"table_user_profile")
-        self.table_user_profile.setMinimumSize(QSize(210, 320))
+        self.table_user_profile.setMinimumSize(QSize(220, 320))
+        self.table_user_profile.setMaximumSize(QSize(220, 16777215))
+        self.table_user_profile.horizontalHeader().setCascadingSectionResizes(False)
+        self.table_user_profile.horizontalHeader().setDefaultSectionSize(48)
+        self.table_user_profile.verticalHeader().setStretchLastSection(False)
 
         self.horizontalLayout_2.addWidget(self.table_user_profile)
 
@@ -64,60 +68,57 @@ class Ui_Dialog(object):
 
         self.gridLayout.addWidget(self.lblName_5, 0, 0, 1, 1)
 
-        self.lblBDate = QLabel(self.frame_2)
+        self.frame_5 = QFrame(self.frame_2)
+        self.frame_5.setObjectName(u"frame_5")
+        self.frame_5.setFrameShape(QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QFrame.Raised)
+        self.gridLayout_2 = QGridLayout(self.frame_5)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.frame_6 = QFrame(self.frame_5)
+        self.frame_6.setObjectName(u"frame_6")
+        self.frame_6.setFrameShape(QFrame.StyledPanel)
+        self.frame_6.setFrameShadow(QFrame.Raised)
+        self.gridLayout_3 = QGridLayout(self.frame_6)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_3.setContentsMargins(138, -1, -1, -1)
+        self.lblBDate = QLabel(self.frame_6)
         self.lblBDate.setObjectName(u"lblBDate")
+        self.lblBDate.setMaximumSize(QSize(91, 16777215))
         self.lblBDate.setFont(font)
         self.lblBDate.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.lblBDate, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.lblBDate, 0, 0, 1, 1)
+
+        self.lblName_6 = QLabel(self.frame_6)
+        self.lblName_6.setObjectName(u"lblName_6")
+        self.lblName_6.setMinimumSize(QSize(0, 0))
+        self.lblName_6.setMaximumSize(QSize(31, 16777215))
+        self.lblName_6.setFont(font)
+        self.lblName_6.setScaledContents(False)
+        self.lblName_6.setAlignment(Qt.AlignCenter)
+        self.lblName_6.setMargin(-1)
+
+        self.gridLayout_3.addWidget(self.lblName_6, 0, 1, 1, 1)
+
+
+        self.gridLayout_2.addWidget(self.frame_6, 0, 0, 1, 1)
+
+        self.txtDivision = QLabel(self.frame_5)
+        self.txtDivision.setObjectName(u"txtDivision")
+        self.txtDivision.setFont(font)
+        self.txtDivision.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.txtDivision.setMargin(0)
+
+        self.gridLayout_2.addWidget(self.txtDivision, 1, 0, 1, 1)
+
+
+        self.gridLayout.addWidget(self.frame_5, 0, 1, 1, 1)
 
         self.userChartView = QChartView(self.frame_2)
         self.userChartView.setObjectName(u"userChartView")
         self.userChartView.setMinimumSize(QSize(580, 220))
 
         self.gridLayout.addWidget(self.userChartView, 1, 0, 1, 2)
-
-        self.frame = QFrame(self.frame_2)
-        self.frame.setObjectName(u"frame")
-        self.frame.setMinimumSize(QSize(551, 45))
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout = QHBoxLayout(self.frame)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.frame_3 = QFrame(self.frame)
-        self.frame_3.setObjectName(u"frame_3")
-        self.frame_3.setFrameShape(QFrame.StyledPanel)
-        self.frame_3.setFrameShadow(QFrame.Raised)
-        self.lblName_2 = QLabel(self.frame_3)
-        self.lblName_2.setObjectName(u"lblName_2")
-        self.lblName_2.setGeometry(QRect(10, 10, 87, 16))
-        font1 = QFont()
-        font1.setStrikeOut(False)
-        self.lblName_2.setFont(font1)
-        self.lblName_2.setAlignment(Qt.AlignCenter)
-        self.txtDivision = QLineEdit(self.frame_3)
-        self.txtDivision.setObjectName(u"txtDivision")
-        self.txtDivision.setGeometry(QRect(103, 10, 132, 21))
-
-        self.horizontalLayout.addWidget(self.frame_3)
-
-        self.frame_4 = QFrame(self.frame)
-        self.frame_4.setObjectName(u"frame_4")
-        self.frame_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QFrame.Raised)
-        self.lblName_4 = QLabel(self.frame_4)
-        self.lblName_4.setObjectName(u"lblName_4")
-        self.lblName_4.setGeometry(QRect(10, 10, 116, 16))
-        self.lblName_4.setFont(font1)
-        self.lblName_4.setAlignment(Qt.AlignCenter)
-        self.txtDegree = QLineEdit(self.frame_4)
-        self.txtDegree.setObjectName(u"txtDegree")
-        self.txtDegree.setGeometry(QRect(132, 10, 132, 21))
-
-        self.horizontalLayout.addWidget(self.frame_4)
-
-
-        self.gridLayout.addWidget(self.frame, 2, 0, 1, 2)
 
 
         self.horizontalLayout_3.addWidget(self.frame_2)
@@ -132,7 +133,7 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430", None))
         self.lblName_5.setText(QCoreApplication.translate("Dialog", u"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430", None))
         self.lblBDate.setText(QCoreApplication.translate("Dialog", u"08.00.2134", None))
-        self.lblName_2.setText(QCoreApplication.translate("Dialog", u"\u041f\u043e\u0434\u0440\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u0438\u0435", None))
-        self.lblName_4.setText(QCoreApplication.translate("Dialog", u"\u0421\u0442\u0440\u0435\u043b\u043a\u043e\u0432\u044b\u0439 \u0443\u0440\u043e\u0432\u0435\u043d\u044c", None))
+        self.lblName_6.setText(QCoreApplication.translate("Dialog", u"\u0433.\u0440.", None))
+        self.txtDivision.setText(QCoreApplication.translate("Dialog", u"\u0411\u0430\u0442\u0430\u043b\u044c\u043e\u043d", None))
     # retranslateUi
 

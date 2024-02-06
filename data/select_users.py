@@ -13,6 +13,15 @@ def fetch_users(session: Session, division_id, degree_id):
     return rows
 
 
+def select_users(session: Session, group_id):
+    query = """
+                SELECT * FROM user 
+                WHERE (:did = 0 or group_id = :did)
+                """
+    rows = session.execute(text(query), {"did": group_id})
+    return rows
+
+
 if __name__ == '__main__':
     with create_session() as s:
         data = fetch_users(s, 0, 0)

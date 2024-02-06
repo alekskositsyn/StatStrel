@@ -6,13 +6,13 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6 import QtCore, QtWidgets, QtCharts
 
 from common.calc_mid_divisions import calc_mid_divisions
-from data.create_session import create_session
+from data.create_session import create_session, create_session_mysql
 from data.delete_user import delete_user
 from data.fetch_all_degree import fetch_all_degree
-from data.fetch_all_divisions import fetch_all_divisions
+from data.select_all_groups import select_all_groups
 from data.fetch_all_tasks import fetch_all_tasks
 from data.fetch_task_4 import fetch_task_4
-from data.fetch_users import fetch_users
+from data.select_users import fetch_users, select_users
 from data.insert_user import insert_user
 from data.update_user import update_user
 from dialogs.UserCreateDialog import UserCreatDialog
@@ -37,16 +37,16 @@ class MainWindow(QMainWindow):
         self.ui.tblItems.doubleClicked.connect(self.on_btn_profile_clicked)
 
         self.load_groups()
-        self.load_degree()
+        # self.load_degree()
         self.load_users()
-        self.load_tasks()
-
-        self.ui.cmb_division.currentIndexChanged.connect(self.load_users)
-        self.ui.cmb_degree.currentIndexChanged.connect(self.load_users)
-        self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
-        self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
-        self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
-        self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
+        # self.load_tasks()
+        #
+        # self.ui.cmb_division.currentIndexChanged.connect(self.load_users)
+        # self.ui.cmb_degree.currentIndexChanged.connect(self.load_users)
+        # self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
+        # self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
+        # self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
+        # self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
 
     def on_btn_profile_clicked(self):
         """  Профиль сотрудника """
@@ -130,19 +130,19 @@ class MainWindow(QMainWindow):
         else:
             division_id = 0
 
-        degree_data = self.ui.cmb_degree.currentData()
-        if degree_data:
-            degree_id = self.ui.cmb_degree.currentData().id
-        else:
-            degree_id = 0
+        # degree_data = self.ui.cmb_degree.currentData()
+        # if degree_data:
+        #     degree_id = self.ui.cmb_degree.currentData().id
+        # else:
+        #     degree_id = 0
 
-        with create_session() as s:
-            rows = fetch_users(s, division_id, degree_id)
+        with create_session_mysql() as s:
+            rows = select_users(s, division_id)
             for r in rows:
                 users_list.append(r)
 
         self.model.set_users(users_list)
-        self.draw_divisions_bar_chart()
+        # self.draw_divisions_bar_chart()
 
     def load_degree(self):
         """ Вывод списка уровня подготовки """
@@ -158,9 +158,9 @@ class MainWindow(QMainWindow):
     def load_groups(self):
         """ Вывод списка подразделений """
         self.ui.cmb_division.addItem('-')
-        with create_session() as s:
+        with create_session_mysql() as s:
             self.divisions = {}
-            rows = fetch_all_divisions(s)
+            rows = select_all_groups(s)
             for r in rows:
                 self.divisions[r.id] = r
         self.model.set_divisions(self.divisions)
@@ -234,8 +234,6 @@ class MainWindow(QMainWindow):
         # series.attachAxis(axis)
 
         self.ui.chartView.setChart(chart)
-
-
 
 
 if __name__ == '__main__':

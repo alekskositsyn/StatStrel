@@ -43,14 +43,12 @@ class UserProfileTableModel(QtCore.QAbstractTableModel):
             elif column == 3:
                 return time
 
-
-
     def headerData(self, section, orientation, role=...):
         if role == QtCore.Qt.ItemDataRole.DisplayRole:
             if orientation == QtCore.Qt.Orientation.Horizontal:
                 return {
                     0: 'Id',
                     1: 'Дата',
-                    2: 'Кол-во попаданий',
+                    2: 'Кол-во',
                     3: 'Время',
                 }.get(section)

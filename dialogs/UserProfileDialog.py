@@ -33,8 +33,8 @@ class UserProfileDialog(QDialog):
         self.ui.txtDivision.setEnabled(False)
         self.ui.lblBDate.setText(officer_birthday)
         # self.ui.txtBDate.setEnabled(False)
-        self.ui.txtDegree.setText(officers_degree)
-        self.ui.txtDegree.setEnabled(False)
+        # self.ui.txtDegree.setText(officers_degree)
+        # self.ui.txtDegree.setEnabled(False)
 
         # self.ui.cmbTasks.addItem('-')
 
