@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
         self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
-        # self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
+        self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
 
     def on_btn_profile_clicked(self):
         """  Профиль сотрудника """
@@ -61,7 +61,7 @@ class MainWindow(QMainWindow):
             remember_choice.exec()
             return
 
-        dialog = UserProfileDialog(self.degree, self.divisions, init_data, self.tasks)
+        dialog = UserProfileDialog(self.divisions, init_data)
         dialog.exec()
 
     def on_btn_edit_clicked(self):

@@ -24,7 +24,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(861, 505)
+        Dialog.resize(871, 505)
         self.horizontalLayout_3 = QHBoxLayout(Dialog)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.left_widget = QWidget(Dialog)
@@ -58,15 +58,15 @@ class Ui_Dialog(object):
         self.frame_2.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frame_2)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.lblName_5 = QLabel(self.frame_2)
-        self.lblName_5.setObjectName(u"lblName_5")
+        self.lblFirstName = QLabel(self.frame_2)
+        self.lblFirstName.setObjectName(u"lblFirstName")
         font = QFont()
         font.setPointSize(12)
         font.setBold(True)
-        self.lblName_5.setFont(font)
-        self.lblName_5.setAlignment(Qt.AlignCenter)
+        self.lblFirstName.setFont(font)
+        self.lblFirstName.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.lblName_5, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.lblFirstName, 0, 0, 1, 1)
 
         self.frame_5 = QFrame(self.frame_2)
         self.frame_5.setObjectName(u"frame_5")
@@ -83,7 +83,7 @@ class Ui_Dialog(object):
         self.gridLayout_3.setContentsMargins(138, -1, -1, -1)
         self.lblBDate = QLabel(self.frame_6)
         self.lblBDate.setObjectName(u"lblBDate")
-        self.lblBDate.setMaximumSize(QSize(91, 16777215))
+        self.lblBDate.setMaximumSize(QSize(300, 16777215))
         self.lblBDate.setFont(font)
         self.lblBDate.setAlignment(Qt.AlignCenter)
 
@@ -112,13 +112,27 @@ class Ui_Dialog(object):
         self.gridLayout_2.addWidget(self.txtDivision, 1, 0, 1, 1)
 
 
-        self.gridLayout.addWidget(self.frame_5, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.frame_5, 0, 1, 3, 1)
+
+        self.lblLastName = QLabel(self.frame_2)
+        self.lblLastName.setObjectName(u"lblLastName")
+        self.lblLastName.setFont(font)
+        self.lblLastName.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.lblLastName, 1, 0, 1, 1)
+
+        self.lblMiddleName = QLabel(self.frame_2)
+        self.lblMiddleName.setObjectName(u"lblMiddleName")
+        self.lblMiddleName.setFont(font)
+        self.lblMiddleName.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.lblMiddleName, 2, 0, 1, 1)
 
         self.userChartView = QChartView(self.frame_2)
         self.userChartView.setObjectName(u"userChartView")
         self.userChartView.setMinimumSize(QSize(580, 220))
 
-        self.gridLayout.addWidget(self.userChartView, 1, 0, 1, 2)
+        self.gridLayout.addWidget(self.userChartView, 3, 0, 1, 2)
 
 
         self.horizontalLayout_3.addWidget(self.frame_2)
@@ -131,9 +145,11 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430", None))
-        self.lblName_5.setText(QCoreApplication.translate("Dialog", u"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430", None))
+        self.lblFirstName.setText(QCoreApplication.translate("Dialog", u"\u0424\u0430\u043c\u0438\u043b\u0438\u044f", None))
         self.lblBDate.setText(QCoreApplication.translate("Dialog", u"08.00.2134", None))
         self.lblName_6.setText(QCoreApplication.translate("Dialog", u"\u0433.\u0440.", None))
         self.txtDivision.setText(QCoreApplication.translate("Dialog", u"\u0411\u0430\u0442\u0430\u043b\u044c\u043e\u043d", None))
+        self.lblLastName.setText(QCoreApplication.translate("Dialog", u"\u0418\u043c\u044f", None))
+        self.lblMiddleName.setText(QCoreApplication.translate("Dialog", u"\u041e\u0442\u0447\u0435\u0441\u0442\u0432\u043e", None))
     # retranslateUi
 

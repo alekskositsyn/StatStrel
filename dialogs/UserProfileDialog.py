@@ -10,26 +10,32 @@ from user_profile_ui import Ui_Dialog
 
 
 class UserProfileDialog(QDialog):
-    def __init__(self, degree, divisions, init_data, tasks, *args, **kwargs):
+    def __init__(self, divisions, init_data, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.model = UserProfileTableModel()
         self.ui.table_user_profile.setModel(self.model)
-        self.ui.table_user_profile.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+        self.ui.table_user_profile.horizontalHeader().setSectionResizeMode(
+            QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+        )
 
+        self.user_id = init_data.id
+        first_name = init_data.first_name
+        middle_name = init_data.middle_name
+        last_name = init_data.last_name
+        officer_birthday = str(init_data.birth_date)
+        group = divisions[init_data.group_id].name
 
+        if officer_birthday == 'None':
+            officer_birthday = 'Дата рождения не известна'
+            self.ui.lblName_6.setText('')
 
-        self.officer_id = init_data.id
-        officer_name = init_data.user
-        officers_division = divisions[init_data.division].name
-        officer_birthday = init_data.birthday
-        officers_degree = degree[init_data.degree].degree
-
-        # self.ui.txtName.setText(officer_name)
-        self.ui.lblName_5.setText(officer_name)
+        self.ui.lblFirstName.setText(first_name)
+        self.ui.lblMiddleName.setText(middle_name)
+        self.ui.lblLastName.setText(last_name)
         # self.ui.txtName.setEnabled(False)
-        self.ui.txtDivision.setText(officers_division)
+        self.ui.txtDivision.setText(group)
         self.ui.txtDivision.setEnabled(False)
         self.ui.lblBDate.setText(officer_birthday)
         # self.ui.txtBDate.setEnabled(False)
@@ -41,7 +47,7 @@ class UserProfileDialog(QDialog):
         # for t in tasks.values():
         #     self.ui.cmbTasks.addItem(t.name, t)
 
-        self.draw_line_chart()
+        # self.draw_line_chart()
 
     def draw_line_chart(self):
         series = QtCharts.QLineSeries()
@@ -52,7 +58,7 @@ class UserProfileDialog(QDialog):
         time = []
 
         with create_session() as s:
-            rows = fetch_task_results_by_user_id(s, self.officer_id)
+            rows = fetch_task_results_by_user_id(s, self.user_id)
             for r in rows:
                 x = QDateTime.fromString(r.date, 'yyyy-MM-dd')
                 count.append(r.count)
