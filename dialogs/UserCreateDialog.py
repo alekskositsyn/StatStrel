@@ -18,6 +18,11 @@ class UserCreatDialog(QDialog):
             self.ui.cmbDivisions.addItem(r.name, r)
 
     def get_data(self):
+        is_operator = self.ui.RBIsOperator.isChecked()
+        if is_operator:
+            is_operator = 1
+        else:
+            is_operator = 0
         return {
             'first_name': self.ui.txtFirstName.text(),
             'middle_name': self.ui.txtMiddleName.text(),
@@ -25,7 +30,7 @@ class UserCreatDialog(QDialog):
             'birth_date': self.ui.dateEdit.date().toPython(),
             'group_id': self.ui.cmbDivisions.currentData().id,
             'identity_number': self.ui.txtIdentityNum.text(),
-            'is_operator': self.ui.RBIsOperator.isChecked()
+            'is_operator': is_operator
 
             # 'degree': self.ui.cmbDegree.currentData().id
         }
