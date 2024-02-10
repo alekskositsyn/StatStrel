@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 def delete_user(s: Session, user_id):
     query = """
-                DELETE FROM officers
+                DELETE FROM user
                 WHERE id = :id
                 """
 

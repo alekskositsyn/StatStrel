@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         self.ui.cmb_division.currentIndexChanged.connect(self.load_users)
         # self.ui.cmb_degree.currentIndexChanged.connect(self.load_users)
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
-        # self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
+        self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
         # self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
         # self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
 
@@ -117,7 +117,7 @@ class MainWindow(QMainWindow):
         r = QMessageBox.question(self, "Подтверждение", "Точно ли хотите удалить")
         if r == QMessageBox.StandardButton.No:
             return
-        with create_session() as s:
+        with create_session_mysql() as s:
             delete_user(s, item_id)
         self.load_users()
 
