@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         # self.ui.cmb_degree.currentIndexChanged.connect(self.load_users)
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
-        # self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
+        self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
         # self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
 
     def on_btn_profile_clicked(self):
@@ -76,7 +76,7 @@ class MainWindow(QMainWindow):
             remember_choice.exec()
             return
 
-        dialog = UserEditDialog(self.degree, self.divisions, init_data)
+        dialog = UserEditDialog(self.divisions, init_data)
         r = dialog.exec()
         if r == 0:
             print('Exit')
@@ -84,7 +84,7 @@ class MainWindow(QMainWindow):
         user_id = init_data.id
         data = dialog.get_data()
 
-        with create_session() as s:
+        with create_session_mysql() as s:
             update_user(s, user_id, data)
         self.load_users()
 
