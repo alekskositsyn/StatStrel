@@ -3,8 +3,8 @@ from PySide6.QtCore import QDateTime
 from PySide6.QtWidgets import QDialog
 from PySide6 import QtCore
 
-from data.create_session import create_session
-from data.fetch_task_results_by_user_id import fetch_task_results_by_user_id
+from data.create_session import create_session, create_session_mysql
+from data.select_results_by_user_id import select_results_by_user_id
 from table_models.user_profile_table_model import UserProfileTableModel
 from user_profile_ui import Ui_Dialog
 
@@ -57,8 +57,8 @@ class UserProfileDialog(QDialog):
         date = []
         time = []
 
-        with create_session() as s:
-            rows = fetch_task_results_by_user_id(s, self.user_id)
+        with create_session_mysql() as s:
+            rows = select_results_by_user_id(s, self.user_id)
             for r in rows:
                 x = QDateTime.fromString(r.date, 'yyyy-MM-dd')
                 count.append(r.count)

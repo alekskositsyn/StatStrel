@@ -153,7 +153,7 @@ class MainWindow(QMainWindow):
             for r in rows:
                 self.degree[r.id] = r
                 self.ui.cmb_degree.addItem(r.degree, r)
-        self.model.set_degree(self.degree)
+        # self.model.set_degree(self.degree)
 
     def load_groups(self):
         """ Вывод списка подразделений """
