@@ -7,12 +7,12 @@ class UserProfileTableModel(QtCore.QAbstractTableModel):
         self.count = []
         self.date = []
         self.time = []
+        self.points = []
 
     def set_count(self, count: list) -> None:
         self.beginResetModel()
         self.count = count
         self.endResetModel()
-        print(count)
 
     def set_date(self, date: list) -> None:
         self.date = date
@@ -20,17 +20,21 @@ class UserProfileTableModel(QtCore.QAbstractTableModel):
     def set_time(self, time: list) -> None:
         self.time = time
 
+    def set_points(self, points: list) -> None:
+        self.points = points
+
     def rowCount(self, *args, **kwargs) -> int:
         return len(self.count)
 
     def columnCount(self, *args, **kwargs) -> int:
-        return 4
+        return 5
 
     def data(self, index: QtCore.QModelIndex, role: QtCore.Qt.ItemDataRole):
         if not index.isValid():
             return
         if role == QtCore.Qt.ItemDataRole.DisplayRole:
             date = self.date[index.row()]
+            points = self.points[index.row()]
             count = self.count[index.row()]
             time = self.time[index.row()]
             column = index.column()
@@ -41,6 +45,8 @@ class UserProfileTableModel(QtCore.QAbstractTableModel):
             elif column == 2:
                 return count
             elif column == 3:
+                return points
+            elif column == 4:
                 return time
 
     def headerData(self, section, orientation, role=...):
@@ -49,6 +55,7 @@ class UserProfileTableModel(QtCore.QAbstractTableModel):
                 return {
                     0: 'Id',
                     1: 'Дата',
-                    2: 'Кол-во',
-                    3: 'Время',
+                    2: 'Кол-во выстрелов',
+                    3: 'Попаданий',
+                    4: 'Время',
                 }.get(section)
