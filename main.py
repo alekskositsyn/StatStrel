@@ -14,6 +14,7 @@ from data.fetch_all_tasks import fetch_all_tasks
 from data.fetch_task_4 import fetch_task_4
 from data.select_users import fetch_users, select_users
 from data.insert_user import insert_user
+from data.select_users_by_search import select_users_by_search
 from data.update_user import update_user
 from dialogs.UserCreateDialog import UserCreatDialog
 from dialogs.UserEditDialog import UserEditDialog
@@ -47,6 +48,19 @@ class MainWindow(QMainWindow):
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
         self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
         self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
+        self.ui.btnSearch.clicked.connect(self.search_user)
+
+    def search_user(self):
+        users_list = []
+        line_search = self.ui.lineSearch
+        params = line_search.text().strip()
+        with create_session_mysql() as s:
+            rows = select_users_by_search(s, params)
+            for r in rows:
+                users_list.append(r)
+        print(f'Searching user...{params}')
+        self.model.set_users(users_list)
+        line_search.clear()
 
     def on_btn_profile_clicked(self):
         """  Профиль сотрудника """
@@ -168,17 +182,17 @@ class MainWindow(QMainWindow):
         for division in self.divisions.values():
             self.ui.cmb_division.addItem(division.name, division)
 
-    def load_tasks(self):
-        self.ui.cmbTasks.addItem('-')
-        with create_session() as s:
-            self.tasks = {}
-            rows = fetch_all_tasks(s)
-            for r in rows:
-                self.tasks[r.id] = r
-                self.ui.cmbTasks.addItem(r.name, r)
+    # def load_tasks(self):
+    #     self.ui.cmbTasks.addItem('-')
+    #     with create_session() as s:
+    #         self.tasks = {}
+    #         rows = fetch_all_tasks(s)
+    #         for r in rows:
+    #             self.tasks[r.id] = r
+    #             self.ui.cmbTasks.addItem(r.name, r)
 
-        # for task in self.tasks.values():
-        #     self.ui.cmbTasks.addItem(task.name, task)
+    # for task in self.tasks.values():
+    #     self.ui.cmbTasks.addItem(task.name, task)
 
     def draw_divisions_bar_chart(self):
         chart = QtCharts.QChart()
