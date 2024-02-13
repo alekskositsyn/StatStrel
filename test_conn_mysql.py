@@ -1,5 +1,6 @@
 from pprint import pprint
 
+from PySide6.QtCore import QDateTime
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 from config import settings
@@ -39,8 +40,9 @@ with create_session_with_mysql() as s:
             }
             points = 0
             count_s = 0
-
-    print(data)
+    x = QDateTime.fromString(str(data[3]["date"].date()), 'yyyy-MM-dd')
+    print(data[3]["date"].date())
+    print(x)
 
 
 

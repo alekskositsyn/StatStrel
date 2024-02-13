@@ -1,8 +1,11 @@
+import datetime
+
 from PySide6 import QtCharts, QtWidgets
 from PySide6.QtCore import QDateTime
 from PySide6.QtWidgets import QDialog
 from PySide6 import QtCore
 
+from common.handler_users_results import handler_users_results
 from data.create_session import create_session, create_session_mysql
 from data.select_results_by_user_id import select_results_by_user_id
 from table_models.user_profile_table_model import UserProfileTableModel
@@ -47,26 +50,30 @@ class UserProfileDialog(QDialog):
         # for t in tasks.values():
         #     self.ui.cmbTasks.addItem(t.name, t)
 
-        # self.draw_line_chart()
+        self.draw_line_chart()
 
     def draw_line_chart(self):
         series = QtCharts.QLineSeries()
         axis_x = QtCharts.QDateTimeAxis()
+        now_time = QDateTime.fromString(str(datetime.date.today()), 'yyyy-MM-dd')
         first_date = {}
+        points = []
         count = []
         date = []
         time = []
 
         with create_session_mysql() as s:
             rows = select_results_by_user_id(s, self.user_id)
-            for r in rows:
-                x = QDateTime.fromString(r.date, 'yyyy-MM-dd')
-                count.append(r.count)
-                time.append(r.time)
-                date.append(r.date)
+            data = handler_users_results(rows)
+            for r in data:
+                x = QDateTime.fromString(str(r["date"].date()), 'yyyy-MM-dd')
+                count.append(r["count"])
+                points.append(r["points"])
+                time.append(r["time"])
+                date.append(x.date())
                 if 1 not in first_date:
                     first_date[1] = x
-                y = r.count
+                y = r["points"]
                 series.append(float(x.toMSecsSinceEpoch()), y)
 
         chart = QtCharts.QChart()
@@ -78,9 +85,14 @@ class UserProfileDialog(QDialog):
         axis_x.setFormat("dd.MM.yyyy")
         # axis_x.setTickCount(10)
         axis_x.setMax(QtCore.QDateTime.currentDateTime().addDays(30))
-        axis_x.setMin(first_date[1])
+        if first_date:
+            axis_x.setMin(first_date[1])
+        else:
+            first_date[2] = now_time
+            axis_x.setMin(first_date[2])
+
         axis_x.setTitleText("Дата")
-        series.setName('Num 4')
+        series.setName('Статистика')
         series.setPointsVisible(True)
         series.setMarkerSize(4)
 
@@ -89,7 +101,7 @@ class UserProfileDialog(QDialog):
         # axis_y.setTickCount(6)
         axis_y.setLabelFormat("%i")
         axis_y.setTitleText("Попаданий")
-        axis_y.setMax(5)
+        axis_y.setMax(4)
         axis_y.setMin(0)
 
         chart.setAxisX(axis_x, series)
@@ -100,5 +112,6 @@ class UserProfileDialog(QDialog):
         self.model.set_count(count)
         self.model.set_date(date)
         self.model.set_time(time)
+        self.model.set_points(points)
 
         self.ui.userChartView.setChart(chart)
