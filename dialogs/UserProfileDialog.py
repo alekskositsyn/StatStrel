@@ -2,7 +2,7 @@ import datetime
 
 from PySide6 import QtCharts, QtWidgets
 from PySide6.QtCore import QDateTime
-from PySide6.QtWidgets import QDialog
+from PySide6.QtWidgets import QDialog, QMessageBox
 from PySide6 import QtCore
 
 from common.handler_users_results import handler_users_results
@@ -17,11 +17,13 @@ class UserProfileDialog(QDialog):
         super().__init__(*args, **kwargs)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+
         self.model = UserProfileTableModel()
         self.ui.table_user_profile.setModel(self.model)
         self.ui.table_user_profile.horizontalHeader().setSectionResizeMode(
             QtWidgets.QHeaderView.ResizeMode.ResizeToContents
         )
+        self.ui.dateEdit.setDate(QDateTime.currentDateTime().date())
 
         self.user_id = init_data.id
         first_name = init_data.first_name
@@ -31,8 +33,7 @@ class UserProfileDialog(QDialog):
         group = divisions[init_data.group_id].name
 
         if officer_birthday == 'None':
-            officer_birthday = 'Дата рождения не известна'
-            self.ui.lblName_6.setText('')
+            officer_birthday = 'Дата рождения\nне известна'
 
         self.ui.lblFirstName.setText(first_name)
         self.ui.lblMiddleName.setText(middle_name)
@@ -44,6 +45,7 @@ class UserProfileDialog(QDialog):
         # self.ui.txtBDate.setEnabled(False)
         # self.ui.txtDegree.setText(officers_degree)
         # self.ui.txtDegree.setEnabled(False)
+        self.ui.btnInsertData.clicked.connect(self.on_btn_insert_results)
 
         # self.ui.cmbTasks.addItem('-')
 
@@ -116,21 +118,33 @@ class UserProfileDialog(QDialog):
 
         self.ui.userChartView.setChart(chart)
 
+    def on_btn_insert_results(self):
+        points = self.ui.txtPoints.text()
+        count = self.ui.txtCount.text()
+        time = self.ui.txtTime.text()
+        date = self.ui.dateEdit.date()
 
-        """
-        Косицын
-Суханник
-Орешков
-Нестерова
-Туполев
-Пупкин
-Ларионцев
-Пантелеев
-Васечкин
-Филимонов
-Романов
-Ловкин
-Краснов
-Тугушев
+        remember_choice = QMessageBox()
 
-        """
+        try:
+            int(points)
+        except ValueError:
+            remember_choice.setText("Введите кол-во попаданий")
+            remember_choice.exec()
+            return
+
+        try:
+            int(time)
+        except ValueError:
+            remember_choice.setText("Введите время")
+            remember_choice.exec()
+            return
+
+        try:
+            int(count)
+        except ValueError:
+            remember_choice.setText("Введите кол-во выстрелов")
+            remember_choice.exec()
+            return
+
+        print(f"Click {type(points)} points and {count} and {time} {date}")
