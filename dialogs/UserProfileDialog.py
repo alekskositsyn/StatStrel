@@ -115,3 +115,22 @@ class UserProfileDialog(QDialog):
         self.model.set_points(points)
 
         self.ui.userChartView.setChart(chart)
+
+
+        """
+        Косицын
+Суханник
+Орешков
+Нестерова
+Туполев
+Пупкин
+Ларионцев
+Пантелеев
+Васечкин
+Филимонов
+Романов
+Ловкин
+Краснов
+Тугушев
+
+        """

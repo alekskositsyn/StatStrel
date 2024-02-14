@@ -1,7 +1,6 @@
 import sys
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QBrush
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6 import QtCore, QtWidgets, QtCharts
 
@@ -10,9 +9,8 @@ from data.create_session import create_session, create_session_mysql
 from data.delete_user import delete_user
 from data.fetch_all_degree import fetch_all_degree
 from data.select_all_groups import select_all_groups
-from data.fetch_all_tasks import fetch_all_tasks
 from data.fetch_task_4 import fetch_task_4
-from data.select_users import fetch_users, select_users
+from data.select_users import select_users
 from data.insert_user import insert_user
 from data.select_users_by_search import select_users_by_search
 from data.update_user import update_user
