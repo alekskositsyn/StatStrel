@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>781</width>
-    <height>438</height>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="lblFirstName">
+          <widget class="QLabel" name="lblLastName">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -55,7 +55,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="lblLastName">
+          <widget class="QLabel" name="lblFirstName">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -284,7 +284,7 @@
     <widget class="QFrame" name="frame_3">
      <property name="maximumSize">
       <size>
-       <width>200</width>
+       <width>220</width>
        <height>16777215</height>
       </size>
      </property>

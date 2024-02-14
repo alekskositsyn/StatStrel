@@ -25,7 +25,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(781, 438)
+        Dialog.resize(781, 468)
         self.gridLayout_3 = QGridLayout(Dialog)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.frame_11 = QFrame(Dialog)
@@ -41,22 +41,22 @@ class Ui_Dialog(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self.frame)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.lblFirstName = QLabel(self.frame)
-        self.lblFirstName.setObjectName(u"lblFirstName")
+        self.lblLastName = QLabel(self.frame)
+        self.lblLastName.setObjectName(u"lblLastName")
         font = QFont()
         font.setPointSize(12)
         font.setBold(True)
-        self.lblFirstName.setFont(font)
-        self.lblFirstName.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout.addWidget(self.lblFirstName)
-
-        self.lblLastName = QLabel(self.frame)
-        self.lblLastName.setObjectName(u"lblLastName")
         self.lblLastName.setFont(font)
         self.lblLastName.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.lblLastName)
+
+        self.lblFirstName = QLabel(self.frame)
+        self.lblFirstName.setObjectName(u"lblFirstName")
+        self.lblFirstName.setFont(font)
+        self.lblFirstName.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout.addWidget(self.lblFirstName)
 
         self.lblMiddleName = QLabel(self.frame)
         self.lblMiddleName.setObjectName(u"lblMiddleName")
@@ -166,7 +166,7 @@ class Ui_Dialog(object):
 
         self.frame_3 = QFrame(Dialog)
         self.frame_3.setObjectName(u"frame_3")
-        self.frame_3.setMaximumSize(QSize(200, 16777215))
+        self.frame_3.setMaximumSize(QSize(220, 16777215))
         self.frame_3.setFrameShape(QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.verticalLayout_6 = QVBoxLayout(self.frame_3)
@@ -290,8 +290,8 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430", None))
-        self.lblFirstName.setText(QCoreApplication.translate("Dialog", u"\u0424\u0430\u043c\u0438\u043b\u0438\u044f", None))
-        self.lblLastName.setText(QCoreApplication.translate("Dialog", u"\u0418\u043c\u044f", None))
+        self.lblLastName.setText(QCoreApplication.translate("Dialog", u"\u0424\u0430\u043c\u0438\u043b\u0438\u044f", None))
+        self.lblFirstName.setText(QCoreApplication.translate("Dialog", u"\u0418\u043c\u044f", None))
         self.lblMiddleName.setText(QCoreApplication.translate("Dialog", u"\u041e\u0442\u0447\u0435\u0441\u0442\u0432\u043e", None))
         self.label_5.setText(QCoreApplication.translate("Dialog", u"\u0414\u0430\u0442\u0430 \u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f", None))
         self.lblBDate.setText(QCoreApplication.translate("Dialog", u"08.01.2004", None))
