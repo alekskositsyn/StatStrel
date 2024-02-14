@@ -39,11 +39,11 @@ class ListTableModel(QtCore.QAbstractTableModel):
             if column == 0:
                 return user_info.id
             elif column == 1:
-                return user_info.first_name
+                return user_info.last_name
             elif column == 2:
                 return user_info.middle_name
             elif column == 3:
-                return user_info.last_name
+                return user_info.first_name
             elif column == 4:
                 if user_info.birth_date is None:
                     return "Неизвестна"
