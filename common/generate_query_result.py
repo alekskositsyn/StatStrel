@@ -15,11 +15,12 @@ def gen_query_no_points(s, time):
              0,
              0.7419337034225464,
              -0.33728885650634766,
-             'meshes\\TargetModels\\Targets\\Fire Training\\Courses of fire\\MVD\\N06v\\N06v.armesh',
+             :preview_target,
              'МВД ?06в'
     );'''
     s.execute(text(stmt), {
         'Time': time,
+        'preview_target': 'meshes\\TargetModels\\Targets\\Fire Training\\Courses of fire\\MVD\\N06v\\N06v.armesh',
     })
 
 
@@ -35,11 +36,12 @@ def gen_query_one_point(s, time):
              1,
              0.43758082389831543,
              0.6251684427261353,
-             'meshes\\TargetModels\\Targets\\Fire Training\\Courses of fire\\MVD\\N06v\\N06v.armesh',
-             'МВД ?06в'
-    );'''
+             :preview_target,
+             'МВД ?06в')'''
     s.execute(text(stmt), {
         'Time': time,
+        'preview_target': 'meshes\\TargetModels\\Targets\\Fire Training\\Courses of fire\\MVD\\N06v\\N06v.armesh',
+
     })
 
 

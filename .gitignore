@@ -1,3 +1,4 @@
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -8,7 +9,6 @@ __pycache__/
 /.idea
 # Database
 /database
-
 # Distribution / packaging
 .Python
 build/
@@ -53,6 +53,11 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+
+db_data.txt
+структура БД.txt
+user1.txt
+tests.py
 
 # Translations
 *.mo
