@@ -7,6 +7,7 @@ from PySide6 import QtCore
 
 from common.handler_users_results import handler_users_results
 from data.create_session import create_session, create_session_mysql
+from data.insert_user_results import insert_user_results
 from data.select_results_by_user_id import select_results_by_user_id
 from table_models.user_profile_table_model import UserProfileTableModel
 from user_profile_ui import Ui_Dialog
@@ -42,10 +43,12 @@ class UserProfileDialog(QDialog):
         self.ui.txtDivision.setText(group)
         self.ui.txtDivision.setEnabled(False)
         self.ui.lblBDate.setText(officer_birthday)
+        self.ui.txtTime.setText('10')
         # self.ui.txtBDate.setEnabled(False)
         # self.ui.txtDegree.setText(officers_degree)
         # self.ui.txtDegree.setEnabled(False)
         self.ui.btnInsertData.clicked.connect(self.on_btn_insert_results)
+        self.ui.txtPoints.textChanged.connect(self.set_count)
 
         # self.ui.cmbTasks.addItem('-')
 
@@ -53,6 +56,11 @@ class UserProfileDialog(QDialog):
         #     self.ui.cmbTasks.addItem(t.name, t)
 
         self.draw_line_chart()
+
+    def set_count(self):
+        points = self.ui.txtPoints.text()
+        if points == '4':
+            self.ui.txtCount.setText(points)
 
     def draw_line_chart(self):
         series = QtCharts.QLineSeries()
@@ -121,30 +129,52 @@ class UserProfileDialog(QDialog):
     def on_btn_insert_results(self):
         points = self.ui.txtPoints.text()
         count = self.ui.txtCount.text()
-        time = self.ui.txtTime.text()
+        time = self.ui.txtTime.text().replace(',', '.')
         date = self.ui.dateEdit.date()
+        date = date.toString('yyyy-MM-dd')
 
         remember_choice = QMessageBox()
+        remember_choice.setWindowTitle('Предупреждение')
 
         try:
-            int(points)
+            points = int(points)
+            if points > 4:
+                raise ValueError
         except ValueError:
-            remember_choice.setText("Введите кол-во попаданий")
+            remember_choice.setText("Введите кол-во попаданий от 0 до 4")
             remember_choice.exec()
             return
 
         try:
-            int(time)
+            float(time)
+            if 1 < float(time) > 10:
+                raise ValueError
         except ValueError:
-            remember_choice.setText("Введите время")
+            remember_choice.setText("Введите время от 1 до 10")
             remember_choice.exec()
             return
 
         try:
-            int(count)
+            count = int(count)
+            if count > 4:
+                raise ValueError
         except ValueError:
-            remember_choice.setText("Введите кол-во выстрелов")
+            remember_choice.setText("Введите кол-во выстрелов от 0 до 4")
             remember_choice.exec()
             return
 
-        print(f"Click {type(points)} points and {count} and {time} {date}")
+        if count < points:
+            remember_choice.setText(
+                "Количество выстрелов не может быть больше количества попаданий"
+            )
+            remember_choice.exec()
+            return
+
+        with create_session_mysql() as s:
+            insert_user_results(s, self.user_id, points, count, time, date)
+
+        self.ui.txtPoints.clear()
+        self.ui.txtCount.clear()
+        self.ui.txtTime.clear()
+
+        self.draw_line_chart()
