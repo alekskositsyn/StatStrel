@@ -225,7 +225,13 @@
     <addaction name="action_4"/>
     <addaction name="action_5"/>
    </widget>
+   <widget class="QMenu" name="btn_settings">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="btn_settings"/>
   </widget>
   <action name="action">
    <property name="text">

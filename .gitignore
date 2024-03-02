@@ -58,7 +58,7 @@ db_data.txt
 структура БД.txt
 user1.txt
 tests.py
-
+settings.ini
 # Translations
 *.mo
 *.pot

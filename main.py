@@ -17,6 +17,7 @@ from data.update_user import update_user
 from dialogs.UserCreateDialog import UserCreatDialog
 from dialogs.UserEditDialog import UserEditDialog
 from dialogs.UserProfileDialog import UserProfileDialog
+from dialogs.SettingsDialog import SettingsDialog
 from table_models.list_table_model import ListTableModel
 from mainwindow_ui import Ui_MainWindow
 
@@ -29,6 +30,7 @@ class MainWindow(QMainWindow):
         self.degree = None
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
 
         self.model = ListTableModel()
         self.ui.tblItems.setModel(self.model)
@@ -47,6 +49,12 @@ class MainWindow(QMainWindow):
         self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
         self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
         self.ui.btnSearch.clicked.connect(self.search_user)
+        self.ui.btn_settings.triggered.connect(self.on_btn_settings)
+
+
+    def on_btn_settings(self):
+        dialog = SettingsDialog()
+        dialog.exec()
 
     def search_user(self):
         users_list = []

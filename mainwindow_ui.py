@@ -168,9 +168,12 @@ class Ui_MainWindow(object):
         self.menuBar.setGeometry(QRect(0, 0, 890, 22))
         self.menu = QMenu(self.menuBar)
         self.menu.setObjectName(u"menu")
+        self.btn_settings = QMenu(self.menuBar)
+        self.btn_settings.setObjectName(u"btn_settings")
         MainWindow.setMenuBar(self.menuBar)
 
         self.menuBar.addAction(self.menu.menuAction())
+        self.menuBar.addAction(self.btn_settings.menuAction())
         self.menu.addAction(self.action_4)
         self.menu.addAction(self.action_5)
 
@@ -194,5 +197,6 @@ class Ui_MainWindow(object):
         self.btn_update.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
         self.btn_delete.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u041c\u0435\u043d\u044e", None))
+        self.btn_settings.setTitle(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
     # retranslateUi
 
