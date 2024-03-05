@@ -156,7 +156,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="btnTestConn">
         <property name="text">
          <string>Тестовое включение</string>
         </property>

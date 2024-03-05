@@ -31,7 +31,6 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-
         self.model = ListTableModel()
         self.ui.tblItems.setModel(self.model)
         self.ui.tblItems.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
@@ -49,8 +48,7 @@ class MainWindow(QMainWindow):
         self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
         self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
         self.ui.btnSearch.clicked.connect(self.search_user)
-        self.ui.btn_settings.triggered.connect(self.on_btn_settings)
-
+        self.ui.btn_settings_2.triggered.connect(self.on_btn_settings)
 
     def on_btn_settings(self):
         dialog = SettingsDialog()

@@ -4,15 +4,24 @@ from settings_ui import Ui_SettingsDialog
 
 
 class SettingsDialog(QDialog):
-    def __init__(self, divisions, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self):
+        super().__init__()
+        # self.config = config
         self.ui = Ui_SettingsDialog()
         self.ui.setupUi(self)
 
         self.ui.btnSave.clicked.connect(self.accept)
         self.ui.btnCancel.clicked.connect(self.reject)
-        print('show')
-        self.show()
+        self.ui.btnTestConn.clicked.connect(self.test_connection)
+        self.ui.radioBtnOk.setText('')
+
+
+    def test_connection(self):
+        print('test_connection')
+        self.ui.radioBtnOk.setCheckable(True)
+        self.ui.radioBtnOk.setChecked(True)
+        self.ui.radioBtnOk.setText('Ok')
+        # self.ui.radioBtnOk.setCheckable(False)
 
     # def get_data(self):
     #     is_operator = self.ui.RBIsOperator.isChecked()

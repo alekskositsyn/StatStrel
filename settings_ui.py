@@ -20,15 +20,15 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QHBoxLayout,
     QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_SettingsDialog(object):
-    def setupUi(self, SettingDialog):
-        if not SettingDialog.objectName():
-            SettingDialog.setObjectName(u"SettingDialog")
-        SettingDialog.resize(220, 360)
-        SettingDialog.setMinimumSize(QSize(220, 360))
-        SettingDialog.setMaximumSize(QSize(220, 16777215))
-        self.verticalLayout = QVBoxLayout(SettingDialog)
+    def setupUi(self, SettingsDialog):
+        if not SettingsDialog.objectName():
+            SettingsDialog.setObjectName(u"SettingsDialog")
+        SettingsDialog.resize(220, 360)
+        SettingsDialog.setMinimumSize(QSize(220, 360))
+        SettingsDialog.setMaximumSize(QSize(220, 16777215))
+        self.verticalLayout = QVBoxLayout(SettingsDialog)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label = QLabel(SettingDialog)
+        self.label = QLabel(SettingsDialog)
         self.label.setObjectName(u"label")
         font = QFont()
         font.setPointSize(10)
@@ -38,60 +38,60 @@ class Ui_SettingsDialog(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.txtPort = QLineEdit(SettingDialog)
+        self.txtPort = QLineEdit(SettingsDialog)
         self.txtPort.setObjectName(u"txtPort")
 
         self.verticalLayout.addWidget(self.txtPort)
 
-        self.label_address = QLabel(SettingDialog)
+        self.label_address = QLabel(SettingsDialog)
         self.label_address.setObjectName(u"label_address")
         self.label_address.setFont(font)
         self.label_address.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.label_address)
 
-        self.txtAddress = QLineEdit(SettingDialog)
+        self.txtAddress = QLineEdit(SettingsDialog)
         self.txtAddress.setObjectName(u"txtAddress")
 
         self.verticalLayout.addWidget(self.txtAddress)
 
-        self.label_username = QLabel(SettingDialog)
+        self.label_username = QLabel(SettingsDialog)
         self.label_username.setObjectName(u"label_username")
         self.label_username.setFont(font)
         self.label_username.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.label_username)
 
-        self.txtUsername = QLineEdit(SettingDialog)
+        self.txtUsername = QLineEdit(SettingsDialog)
         self.txtUsername.setObjectName(u"txtUsername")
 
         self.verticalLayout.addWidget(self.txtUsername)
 
-        self.label_name = QLabel(SettingDialog)
+        self.label_name = QLabel(SettingsDialog)
         self.label_name.setObjectName(u"label_name")
         self.label_name.setFont(font)
         self.label_name.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.label_name)
 
-        self.txtNameDB = QLineEdit(SettingDialog)
+        self.txtNameDB = QLineEdit(SettingsDialog)
         self.txtNameDB.setObjectName(u"txtNameDB")
 
         self.verticalLayout.addWidget(self.txtNameDB)
 
-        self.label_pass = QLabel(SettingDialog)
+        self.label_pass = QLabel(SettingsDialog)
         self.label_pass.setObjectName(u"label_pass")
         self.label_pass.setFont(font)
         self.label_pass.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.label_pass)
 
-        self.txtPass = QLineEdit(SettingDialog)
+        self.txtPass = QLineEdit(SettingsDialog)
         self.txtPass.setObjectName(u"txtPass")
 
         self.verticalLayout.addWidget(self.txtPass)
 
-        self.frame = QFrame(SettingDialog)
+        self.frame = QFrame(SettingsDialog)
         self.frame.setObjectName(u"frame")
         font1 = QFont()
         font1.setBold(True)
@@ -100,10 +100,10 @@ class Ui_SettingsDialog(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.pushButton = QPushButton(self.frame)
-        self.pushButton.setObjectName(u"pushButton")
+        self.btnTestConn = QPushButton(self.frame)
+        self.btnTestConn.setObjectName(u"btnTestConn")
 
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.horizontalLayout.addWidget(self.btnTestConn)
 
         self.radioBtnOk = QRadioButton(self.frame)
         self.radioBtnOk.setObjectName(u"radioBtnOk")
@@ -114,7 +114,7 @@ class Ui_SettingsDialog(object):
 
         self.verticalLayout.addWidget(self.frame)
 
-        self.frame_2 = QFrame(SettingDialog)
+        self.frame_2 = QFrame(SettingsDialog)
         self.frame_2.setObjectName(u"frame_2")
         self.frame_2.setFrameShape(QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Raised)
@@ -135,26 +135,26 @@ class Ui_SettingsDialog(object):
         self.verticalLayout.addWidget(self.frame_2)
 
 
-        self.retranslateUi(SettingDialog)
+        self.retranslateUi(SettingsDialog)
 
-        QMetaObject.connectSlotsByName(SettingDialog)
+        QMetaObject.connectSlotsByName(SettingsDialog)
     # setupUi
 
-    def retranslateUi(self, SettingDialog):
-        SettingDialog.setWindowTitle(QCoreApplication.translate("SettingDialog", u"Dialog", None))
-        self.label.setText(QCoreApplication.translate("SettingDialog", u"\u041f\u043e\u0440\u0442", None))
-        self.txtPort.setText(QCoreApplication.translate("SettingDialog", u"3123", None))
-        self.label_address.setText(QCoreApplication.translate("SettingDialog", u"\u0410\u0434\u0440\u0435\u0441", None))
-        self.txtAddress.setText(QCoreApplication.translate("SettingDialog", u"localhost", None))
-        self.label_username.setText(QCoreApplication.translate("SettingDialog", u"\u0418\u043c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f", None))
-        self.txtUsername.setText(QCoreApplication.translate("SettingDialog", u"name", None))
-        self.label_name.setText(QCoreApplication.translate("SettingDialog", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0431\u0430\u0437\u044b \u0434\u0430\u043d\u043d\u044b\u0445", None))
-        self.txtNameDB.setText(QCoreApplication.translate("SettingDialog", u"dbname", None))
-        self.label_pass.setText(QCoreApplication.translate("SettingDialog", u"\u041f\u0430\u0440\u043e\u043b\u044c", None))
-        self.txtPass.setText(QCoreApplication.translate("SettingDialog", u"password", None))
-        self.pushButton.setText(QCoreApplication.translate("SettingDialog", u"\u0422\u0435\u0441\u0442\u043e\u0432\u043e\u0435 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435", None))
-        self.radioBtnOk.setText(QCoreApplication.translate("SettingDialog", u"\u041e\u043a", None))
-        self.btnSave.setText(QCoreApplication.translate("SettingDialog", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
-        self.btnCancel.setText(QCoreApplication.translate("SettingDialog", u"\u041e\u0442\u043c\u0435\u043d\u0430", None))
+    def retranslateUi(self, SettingsDialog):
+        SettingsDialog.setWindowTitle(QCoreApplication.translate("SettingsDialog", u"Dialog", None))
+        self.label.setText(QCoreApplication.translate("SettingsDialog", u"\u041f\u043e\u0440\u0442", None))
+        self.txtPort.setText(QCoreApplication.translate("SettingsDialog", u"3123", None))
+        self.label_address.setText(QCoreApplication.translate("SettingsDialog", u"\u0410\u0434\u0440\u0435\u0441", None))
+        self.txtAddress.setText(QCoreApplication.translate("SettingsDialog", u"localhost", None))
+        self.label_username.setText(QCoreApplication.translate("SettingsDialog", u"\u0418\u043c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f", None))
+        self.txtUsername.setText(QCoreApplication.translate("SettingsDialog", u"name", None))
+        self.label_name.setText(QCoreApplication.translate("SettingsDialog", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0431\u0430\u0437\u044b \u0434\u0430\u043d\u043d\u044b\u0445", None))
+        self.txtNameDB.setText(QCoreApplication.translate("SettingsDialog", u"dbname", None))
+        self.label_pass.setText(QCoreApplication.translate("SettingsDialog", u"\u041f\u0430\u0440\u043e\u043b\u044c", None))
+        self.txtPass.setText(QCoreApplication.translate("SettingsDialog", u"password", None))
+        self.btnTestConn.setText(QCoreApplication.translate("SettingsDialog", u"\u0422\u0435\u0441\u0442\u043e\u0432\u043e\u0435 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435", None))
+        self.radioBtnOk.setText(QCoreApplication.translate("SettingsDialog", u"\u041e\u043a", None))
+        self.btnSave.setText(QCoreApplication.translate("SettingsDialog", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
+        self.btnCancel.setText(QCoreApplication.translate("SettingsDialog", u"\u041e\u0442\u043c\u0435\u043d\u0430", None))
     # retranslateUi
 

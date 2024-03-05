@@ -33,8 +33,8 @@ class Ui_MainWindow(object):
         self.action_2.setObjectName(u"action_2")
         self.action_3 = QAction(MainWindow)
         self.action_3.setObjectName(u"action_3")
-        self.action_4 = QAction(MainWindow)
-        self.action_4.setObjectName(u"action_4")
+        self.btn_settings_2 = QAction(MainWindow)
+        self.btn_settings_2.setObjectName(u"btn_settings_2")
         self.action_5 = QAction(MainWindow)
         self.action_5.setObjectName(u"action_5")
         self.centralwidget = QWidget(MainWindow)
@@ -168,13 +168,10 @@ class Ui_MainWindow(object):
         self.menuBar.setGeometry(QRect(0, 0, 890, 22))
         self.menu = QMenu(self.menuBar)
         self.menu.setObjectName(u"menu")
-        self.btn_settings = QMenu(self.menuBar)
-        self.btn_settings.setObjectName(u"btn_settings")
         MainWindow.setMenuBar(self.menuBar)
 
         self.menuBar.addAction(self.menu.menuAction())
-        self.menuBar.addAction(self.btn_settings.menuAction())
-        self.menu.addAction(self.action_4)
+        self.menu.addAction(self.btn_settings_2)
         self.menu.addAction(self.action_5)
 
         self.retranslateUi(MainWindow)
@@ -187,7 +184,7 @@ class Ui_MainWindow(object):
         self.action.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043f\u0440\u0430\u0432\u043a\u0430", None))
         self.action_2.setText(QCoreApplication.translate("MainWindow", u"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435", None))
         self.action_3.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
-        self.action_4.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
+        self.btn_settings_2.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
         self.action_5.setText(QCoreApplication.translate("MainWindow", u"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435", None))
         self.btnSearch.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0438\u0441\u043a", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0434\u0440\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u0438\u0435", None))
@@ -197,6 +194,5 @@ class Ui_MainWindow(object):
         self.btn_update.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
         self.btn_delete.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u041c\u0435\u043d\u044e", None))
-        self.btn_settings.setTitle(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
     # retranslateUi
 
