@@ -10,7 +10,7 @@ def update_user(s: Session, user_id, data):
                     last_name = :last_name,
                     group_id = :group_id,
                     birth_date = :birth_date,
-                    identity_number = :identity_number, 
+                    personal_number = :personal_number, 
                     is_operator = :is_operator
                 WHERE id = :id
                             '''
@@ -21,7 +21,7 @@ def update_user(s: Session, user_id, data):
         "last_name": data["last_name"],
         "group_id": data["group_id"],
         "birth_date": data["birth_date"],
-        "identity_number": data["identity_number"],
+        "personal_number": data["personal_number"],
         "is_operator": data["is_operator"]
     })
     s.commit()

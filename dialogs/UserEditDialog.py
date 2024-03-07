@@ -12,7 +12,7 @@ class UserEditDialog(UserCreatDialog):
         group = divisions[init_data.group_id].name
         officer_birthday = init_data.birth_date
         # q_date = QtCore.QDate.fromString(officer_birthday, "yyyy-MM-dd")
-        identity_number = init_data.identity_number
+        personal_number = init_data.personal_number
         is_operator = init_data.is_operator
 
         self.ui.txtFirstName.setText(first_name)
@@ -20,5 +20,5 @@ class UserEditDialog(UserCreatDialog):
         self.ui.txtLastName.setText(last_name)
         self.ui.cmbDivisions.setCurrentText(group)
         self.ui.dateEdit.setDate(officer_birthday)
-        self.ui.txtIdentityNum.setText(identity_number)
+        self.ui.txtIdentityNum.setText(personal_number)
         self.ui.RBIsOperator.setChecked(is_operator)

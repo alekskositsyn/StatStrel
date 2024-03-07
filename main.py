@@ -8,9 +8,7 @@ from common.calc_mid_divisions import calc_mid_divisions
 from common.config_load import load_config, save_config_file
 from data.create_session import create_session, create_session_to_mysql
 from data.delete_user import delete_user
-from data.fetch_all_degree import fetch_all_degree
 from data.select_all_groups import select_all_groups
-from data.fetch_task_4 import fetch_task_4
 from data.select_users import select_users
 from data.insert_user import insert_user
 from data.select_users_by_search import select_users_by_search
@@ -111,6 +109,7 @@ class MainWindow(QMainWindow):
             return
 
         dialog = UserEditDialog(self.divisions, init_data)
+        dialog.setWindowTitle("Редактирование данных сотрудника")
         r = dialog.exec()
         if r == 0:
             print('Exit')

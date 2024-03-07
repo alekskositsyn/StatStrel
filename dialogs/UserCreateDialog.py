@@ -19,6 +19,9 @@ class UserCreatDialog(QDialog):
 
     def get_data(self):
         is_operator = self.ui.RBIsOperator.isChecked()
+        personal_number = self.ui.txtIdentityNum.text()
+        if not personal_number:
+            personal_number = None
         if is_operator:
             is_operator = 1
         else:
@@ -29,7 +32,7 @@ class UserCreatDialog(QDialog):
             'last_name': self.ui.txtLastName.text(),
             'birth_date': self.ui.dateEdit.date().toPython(),
             'group_id': self.ui.cmbDivisions.currentData().id,
-            'identity_number': self.ui.txtIdentityNum.text(),
+            'personal_number': personal_number,
             'is_operator': is_operator
 
             # 'degree': self.ui.cmbDegree.currentData().id
