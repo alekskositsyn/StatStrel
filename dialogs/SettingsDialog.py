@@ -1,42 +1,39 @@
 from PySide6.QtWidgets import QDialog
 
+from data.create_session import test_session_mysql
 from settings_ui import Ui_SettingsDialog
 
 
 class SettingsDialog(QDialog):
     def __init__(self):
         super().__init__()
-        # self.config = config
         self.ui = Ui_SettingsDialog()
         self.ui.setupUi(self)
 
         self.ui.btnSave.clicked.connect(self.accept)
+        self.ui.btnSave.setEnabled(False)
         self.ui.btnCancel.clicked.connect(self.reject)
         self.ui.btnTestConn.clicked.connect(self.test_connection)
         self.ui.radioBtnOk.setText('')
 
+    def get_data(self) -> dict:
+        data = {
+            'default_port': self.ui.txtPort.text(),
+            'address': self.ui.txtAddress.text(),
+            'database_name': self.ui.txtNameDB.text(),
+            'database_pass': self.ui.txtPass.text(),
+            'database_user': self.ui.txtUsername.text(),
+        }
+        return data
 
     def test_connection(self):
-        print('test_connection')
+        config = self.get_data()
+
+        if not test_session_mysql(config):
+            self.ui.radioBtnOk.setText('No')
+            return False
+
         self.ui.radioBtnOk.setCheckable(True)
         self.ui.radioBtnOk.setChecked(True)
         self.ui.radioBtnOk.setText('Ok')
-        # self.ui.radioBtnOk.setCheckable(False)
-
-    # def get_data(self):
-    #     is_operator = self.ui.RBIsOperator.isChecked()
-    #     if is_operator:
-    #         is_operator = 1
-    #     else:
-    #         is_operator = 0
-    #     return {
-    #         'first_name': self.ui.txtFirstName.text(),
-    #         'middle_name': self.ui.txtMiddleName.text(),
-    #         'last_name': self.ui.txtLastName.text(),
-    #         'birth_date': self.ui.dateEdit.date().toPython(),
-    #         'group_id': self.ui.cmbDivisions.currentData().id,
-    #         'identity_number': self.ui.txtIdentityNum.text(),
-    #         'is_operator': is_operator
-    #
-    #         # 'degree': self.ui.cmbDegree.currentData().id
-    #     }
+        self.ui.btnSave.setEnabled(True)

@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6 import QtCore, QtWidgets, QtCharts
 
 from common.calc_mid_divisions import calc_mid_divisions
+from common.config_load import load_config, save_config_file
 from data.create_session import create_session, create_session_mysql
 from data.delete_user import delete_user
 from data.fetch_all_degree import fetch_all_degree
@@ -28,19 +29,26 @@ class MainWindow(QMainWindow):
         self.tasks = None
         self.divisions = None
         self.degree = None
+        self.flag = True
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
+        self.config = load_config()
         self.model = ListTableModel()
+
+        if not self.config:
+            self.flag = False
+            self.on_btn_settings()
+
+        if self.flag:
+            self.load_groups()
+            self.load_users()
+            # self.load_tasks()
+            # self.load_degree()
+
         self.ui.tblItems.setModel(self.model)
         self.ui.tblItems.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
         self.ui.tblItems.doubleClicked.connect(self.on_btn_profile_clicked)
 
-        self.load_groups()
-        # self.load_degree()
-        self.load_users()
-        # self.load_tasks()
-        #
         self.ui.cmb_division.currentIndexChanged.connect(self.load_users)
         # self.ui.cmb_degree.currentIndexChanged.connect(self.load_users)
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
@@ -52,7 +60,15 @@ class MainWindow(QMainWindow):
 
     def on_btn_settings(self):
         dialog = SettingsDialog()
-        dialog.exec()
+        r = dialog.exec()
+        if r == 0:
+            print('Exit')
+            return
+        data = dialog.get_data()
+        save_config_file(data)
+        self.flag = True
+        self.load_groups()
+        self.load_users()
 
     def search_user(self):
         users_list = []
@@ -256,8 +272,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
     window = MainWindow()
     window.show()
-
     sys.exit(app.exec())
