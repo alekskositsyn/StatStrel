@@ -6,7 +6,7 @@ from PySide6 import QtCore, QtWidgets, QtCharts
 
 from common.calc_mid_divisions import calc_mid_divisions
 from common.config_load import load_config, save_config_file
-from data.create_session import create_session, create_session_mysql
+from data.create_session import create_session, create_session_to_mysql
 from data.delete_user import delete_user
 from data.fetch_all_degree import fetch_all_degree
 from data.select_all_groups import select_all_groups
@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
         users_list = []
         line_search = self.ui.lineSearch
         params = line_search.text().strip()
-        with create_session_mysql() as s:
+        with create_session_to_mysql(self.config) as s:
             rows = select_users_by_search(s, params)
             for r in rows:
                 users_list.append(r)
@@ -95,7 +95,7 @@ class MainWindow(QMainWindow):
             remember_choice.exec()
             return
 
-        dialog = UserProfileDialog(self.divisions, init_data)
+        dialog = UserProfileDialog(self.divisions, init_data, self.config)
         dialog.exec()
 
     def on_btn_edit_clicked(self):
@@ -118,7 +118,7 @@ class MainWindow(QMainWindow):
         user_id = init_data.id
         data = dialog.get_data()
 
-        with create_session_mysql() as s:
+        with create_session_to_mysql(self.config) as s:
             update_user(s, user_id, data)
         self.load_users()
 
@@ -132,7 +132,7 @@ class MainWindow(QMainWindow):
             return
 
         data = dialog.get_data()
-        with create_session_mysql() as s:
+        with create_session_to_mysql(self.config) as s:
             insert_user(s, data)
         self.load_users()
 
@@ -151,7 +151,7 @@ class MainWindow(QMainWindow):
         r = QMessageBox.question(self, "Подтверждение", "Точно ли хотите удалить")
         if r == QMessageBox.StandardButton.No:
             return
-        with create_session_mysql() as s:
+        with create_session_to_mysql(self.config) as s:
             delete_user(s, item_id)
         self.load_users()
 
@@ -170,7 +170,7 @@ class MainWindow(QMainWindow):
         # else:
         #     degree_id = 0
 
-        with create_session_mysql() as s:
+        with create_session_to_mysql(self.config) as s:
             rows = select_users(s, division_id)
             for r in rows:
                 users_list.append(r)
@@ -192,7 +192,7 @@ class MainWindow(QMainWindow):
     def load_groups(self):
         """ Вывод списка подразделений """
         self.ui.cmb_division.addItem('-')
-        with create_session_mysql() as s:
+        with create_session_to_mysql(self.config) as s:
             self.divisions = {}
             rows = select_all_groups(s)
             for r in rows:

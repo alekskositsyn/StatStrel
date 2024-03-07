@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QDialog, QMessageBox
 from PySide6 import QtCore
 
 from common.handler_users_results import handler_users_results
-from data.create_session import create_session, create_session_mysql
+from data.create_session import create_session, create_session_to_mysql
 from data.insert_user_results import insert_user_results
 from data.select_results_by_user_id import select_results_by_user_id
 from table_models.user_profile_table_model import UserProfileTableModel
@@ -14,10 +14,11 @@ from user_profile_ui import Ui_Dialog
 
 
 class UserProfileDialog(QDialog):
-    def __init__(self, divisions, init_data, *args, **kwargs):
+    def __init__(self, divisions, init_data, config, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.config = config
 
         self.model = UserProfileTableModel()
         self.ui.table_user_profile.setModel(self.model)
@@ -72,7 +73,7 @@ class UserProfileDialog(QDialog):
         date = []
         time = []
 
-        with create_session_mysql() as s:
+        with create_session_to_mysql(self.config) as s:
             rows = select_results_by_user_id(s, self.user_id)
             data = handler_users_results(rows)
             for r in data:
@@ -170,7 +171,7 @@ class UserProfileDialog(QDialog):
             remember_choice.exec()
             return
 
-        with create_session_mysql() as s:
+        with create_session_to_mysql(self.config) as s:
             insert_user_results(s, self.user_id, points, count, time, date)
 
         self.ui.txtPoints.clear()
