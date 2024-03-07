@@ -12,8 +12,6 @@ class UserCreatDialog(QDialog):
         self.ui.btnAdd.clicked.connect(self.accept)
         self.ui.btnCancel.clicked.connect(self.reject)
 
-        # for r in degree.values():
-        #     self.ui.cmbDegree.addItem(r.degree, r)
         for r in divisions.values():
             self.ui.cmbDivisions.addItem(r.name, r)
 
@@ -34,6 +32,4 @@ class UserCreatDialog(QDialog):
             'group_id': self.ui.cmbDivisions.currentData().id,
             'personal_number': personal_number,
             'is_operator': is_operator
-
-            # 'degree': self.ui.cmbDegree.currentData().id
         }

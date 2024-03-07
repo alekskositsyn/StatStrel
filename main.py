@@ -57,6 +57,8 @@ class MainWindow(QMainWindow):
         self.ui.btn_settings_2.triggered.connect(self.on_btn_settings)
 
     def on_btn_settings(self):
+        """ Вызов окна настроек подключения к БД """
+
         dialog = SettingsDialog()
         r = dialog.exec()
         if r == 0:
@@ -69,6 +71,7 @@ class MainWindow(QMainWindow):
         self.load_users()
 
     def search_user(self):
+        """ Поиск сотрудника """
         users_list = []
         line_search = self.ui.lineSearch
         params = line_search.text().strip()
@@ -76,12 +79,13 @@ class MainWindow(QMainWindow):
             rows = select_users_by_search(s, params)
             for r in rows:
                 users_list.append(r)
-        print(f'Searching user...{params}')
+        # print(f'Searching user...{params}')
         self.model.set_users(users_list)
         line_search.clear()
 
     def on_btn_profile_clicked(self):
         """  Профиль сотрудника """
+
         remember_choice = QMessageBox()
         remember_choice.setWindowTitle("Профиль сотрудника")
         remember_choice.setText("Выберите сотрудника")
@@ -97,7 +101,8 @@ class MainWindow(QMainWindow):
         dialog.exec()
 
     def on_btn_edit_clicked(self):
-        """  Редактирование данных сотрудника """
+        """ Вызов окна редактирования данных сотрудника """
+
         remember_choice = QMessageBox()
         remember_choice.setWindowTitle("Редактирование данных сотрудника")
         remember_choice.setText("Выберите сотрудника для редактирования")
@@ -122,7 +127,7 @@ class MainWindow(QMainWindow):
         self.load_users()
 
     def on_btn_add_clicked(self):
-        """ Добавление нового сотрудника"""
+        """ Вызов окна добавления нового сотрудника """
 
         dialog = UserCreatDialog(self.divisions)
         r = dialog.exec()
@@ -137,6 +142,7 @@ class MainWindow(QMainWindow):
 
     def on_btn_remove_clicked(self):
         """ Удаление сотрудника """
+
         remember_choice = QMessageBox()
         remember_choice.setWindowTitle("Удаление")
         remember_choice.setText("Выберите сотрудника для удаления")
@@ -156,6 +162,7 @@ class MainWindow(QMainWindow):
 
     def load_users(self):
         """ Вывод списка сотрудников """
+
         users_list = []
         divisions_data = self.ui.cmb_division.currentData()
         if divisions_data:
@@ -177,19 +184,20 @@ class MainWindow(QMainWindow):
         self.model.set_users(users_list)
         # self.draw_divisions_bar_chart()
 
-    def load_degree(self):
-        """ Вывод списка уровня подготовки """
-        self.ui.cmb_degree.addItem('-')
-        with create_session() as s:
-            self.degree = {}
-            rows = fetch_all_degree(s)
-            for r in rows:
-                self.degree[r.id] = r
-                self.ui.cmb_degree.addItem(r.degree, r)
+    # def load_degree(self):
+    #     """ Вывод списка уровня подготовки """
+    #     self.ui.cmb_degree.addItem('-')
+    #     with create_session() as s:
+    #         self.degree = {}
+    #         rows = fetch_all_degree(s)
+    #         for r in rows:
+    #             self.degree[r.id] = r
+    #             self.ui.cmb_degree.addItem(r.degree, r)
         # self.model.set_degree(self.degree)
 
     def load_groups(self):
         """ Вывод списка подразделений """
+
         self.ui.cmb_division.addItem('-')
         with create_session_to_mysql(self.config) as s:
             self.divisions = {}
@@ -228,19 +236,19 @@ class MainWindow(QMainWindow):
 
         divisions_names = []
 
-        for division in self.divisions.values():
-            divisions_names.append(division.name)
-            with create_session() as s:
-                rows = fetch_task_4(s, division.id)
-                result = calc_mid_divisions(rows)
-
-            bar_set.append(result)
-            # Цвет результата на столбце
-            # bar_set.setLabelColor('#3e3e3e')
-            # Цвет столбца
-            # bar_set.setColor("#3e3e3e")
-            # Позиция результата на столбце
-        series.append(bar_set)
+        # for division in self.divisions.values():
+        #     divisions_names.append(division.name)
+        #     with create_session() as s:
+        #         rows = fetch_task_4(s, division.id)
+        #         result = calc_mid_divisions(rows)
+        #
+        #     bar_set.append(result)
+        #     # Цвет результата на столбце
+        #     # bar_set.setLabelColor('#3e3e3e')
+        #     # Цвет столбца
+        #     # bar_set.setColor("#3e3e3e")
+        #     # Позиция результата на столбце
+        # series.append(bar_set)
 
         chart.addSeries(series)
 
