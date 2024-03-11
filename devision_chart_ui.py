@@ -23,7 +23,8 @@ class Ui_DivChartDialog(object):
     def setupUi(self, DivChartDialog):
         if not DivChartDialog.objectName():
             DivChartDialog.setObjectName(u"DivChartDialog")
-        DivChartDialog.resize(400, 300)
+        DivChartDialog.resize(700, 350)
+        DivChartDialog.setMinimumSize(QSize(700, 350))
         self.gridLayout = QGridLayout(DivChartDialog)
         self.gridLayout.setObjectName(u"gridLayout")
         self.chartView = QChartView(DivChartDialog)

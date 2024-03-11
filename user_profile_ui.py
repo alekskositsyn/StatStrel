@@ -25,7 +25,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(621, 584)
+        Dialog.resize(743, 584)
         self.gridLayout_3 = QGridLayout(Dialog)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.frame_11 = QFrame(Dialog)
@@ -175,7 +175,8 @@ class Ui_Dialog(object):
 
         self.frame_12 = QFrame(Dialog)
         self.frame_12.setObjectName(u"frame_12")
-        self.frame_12.setMaximumSize(QSize(345, 200))
+        self.frame_12.setMinimumSize(QSize(425, 0))
+        self.frame_12.setMaximumSize(QSize(425, 200))
         self.frame_12.setFrameShape(QFrame.StyledPanel)
         self.frame_12.setFrameShadow(QFrame.Raised)
         self.gridLayout_4 = QGridLayout(self.frame_12)
@@ -240,7 +241,7 @@ class Ui_Dialog(object):
 
         self.dateEdit = QDateEdit(self.frame_9)
         self.dateEdit.setObjectName(u"dateEdit")
-        self.dateEdit.setDateTime(QDateTime(QDate(2024, 1, 1), QTime(0, 0, 0)))
+        self.dateEdit.setDateTime(QDateTime(QDate(2023, 12, 31), QTime(21, 0, 0)))
         self.dateEdit.setCalendarPopup(True)
 
         self.verticalLayout_2.addWidget(self.dateEdit)

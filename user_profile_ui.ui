@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
+    <width>743</width>
     <height>584</height>
    </rect>
   </property>
@@ -343,9 +343,15 @@
    </item>
    <item row="2" column="0">
     <widget class="QFrame" name="frame_12">
+     <property name="minimumSize">
+      <size>
+       <width>425</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="maximumSize">
       <size>
-       <width>345</width>
+       <width>425</width>
        <height>200</height>
       </size>
      </property>
@@ -502,12 +508,12 @@
           <widget class="QDateEdit" name="dateEdit">
            <property name="dateTime">
             <datetime>
-             <hour>0</hour>
+             <hour>21</hour>
              <minute>0</minute>
              <second>0</second>
-             <year>2024</year>
-             <month>1</month>
-             <day>1</day>
+             <year>2023</year>
+             <month>12</month>
+             <day>31</day>
             </datetime>
            </property>
            <property name="calendarPopup">
@@ -742,7 +748,7 @@
   <customwidget>
    <class>QChartView</class>
    <extends>QGraphicsView</extends>
-   <header>qchartview</header>
+   <header location="global">qchartview</header>
   </customwidget>
  </customwidgets>
  <resources/>
