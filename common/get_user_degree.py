@@ -23,4 +23,4 @@ def get_division_degree(s, division_id):
         percents = results[1] / (results[0] + results[1]) * 100
     except ZeroDivisionError:
         percents = 0
-    return percents
+    return int(percents)

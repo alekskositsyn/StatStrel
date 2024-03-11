@@ -25,6 +25,7 @@ from mainwindow_ui import Ui_MainWindow
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.chart_view = None
         self.tasks = None
         self.divisions = None
         self.degree = None
@@ -224,8 +225,8 @@ class MainWindow(QMainWindow):
     #     self.ui.cmbTasks.addItem(task.name, task)
 
     def show_div_chart(self):
-        dialog = DivisionChart(self.divisions, self.config)
-        dialog.exec()
+        self.chart_view = DivisionChart(self.divisions, self.config)
+        self.chart_view.show()
 
 
 if __name__ == '__main__':
