@@ -195,6 +195,12 @@
         <property name="text">
          <string>Сохранить</string>
         </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
       <item>

@@ -1,5 +1,11 @@
-def handler_users_results(rows) -> list[dict]:
+def set_result(points, time, count_s):
+    if points >= 3 and time < 10.02 and count_s == 4:
+        return 'Удовлетворительно'
+    else:
+        return 'Неудовлетворительно'
 
+
+def handler_users_results(rows) -> list[dict]:
     """ Обработчик данных полученных из БД,
     который подсчитывает кол-во попаданий """
 
@@ -18,11 +24,13 @@ def handler_users_results(rows) -> list[dict]:
             date = row.created
             time = row.Time
         elif p_target is None:
+            result = set_result(points, time, count_s)
             data = {
                 "date": date,
                 "time": time,
                 "count": count_s,
                 "points": points,
+                "result": result
             }
             results.append(data)
 

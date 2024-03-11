@@ -72,6 +72,7 @@ class UserProfileDialog(QDialog):
         count = []
         date = []
         time = []
+        results = []
 
         with create_session_to_mysql(self.config) as s:
             rows = select_results_by_user_id(s, self.user_id)
@@ -82,6 +83,7 @@ class UserProfileDialog(QDialog):
                 points.append(r["points"])
                 time.append(r["time"])
                 date.append(x.date())
+                results.append(r["result"])
                 if 1 not in first_date:
                     first_date[1] = x
                 y = r["points"]
@@ -124,6 +126,7 @@ class UserProfileDialog(QDialog):
         self.model.set_date(date)
         self.model.set_time(time)
         self.model.set_points(points)
+        self.model.set_results(results)
 
         self.ui.userChartView.setChart(chart)
 

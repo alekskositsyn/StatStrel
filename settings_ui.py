@@ -123,6 +123,7 @@ class Ui_SettingsDialog(object):
         self.horizontalLayout_2.setContentsMargins(-1, 0, -1, 0)
         self.btnSave = QPushButton(self.frame_2)
         self.btnSave.setObjectName(u"btnSave")
+        self.btnSave.setCheckable(False)
 
         self.horizontalLayout_2.addWidget(self.btnSave)
 
@@ -136,6 +137,9 @@ class Ui_SettingsDialog(object):
 
 
         self.retranslateUi(SettingsDialog)
+
+        self.btnSave.setDefault(False)
+
 
         QMetaObject.connectSlotsByName(SettingsDialog)
     # setupUi
