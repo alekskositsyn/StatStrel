@@ -29,7 +29,8 @@ class MainWindow(QMainWindow):
         self.chart_view = None
         self.tasks = None
         self.divisions = None
-        self.degree = None
+        self.users_count_tests = {}
+        self.users_degree = {}
         self.flag = True
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -164,8 +165,6 @@ class MainWindow(QMainWindow):
         """ Вывод списка сотрудников """
 
         users_list = []
-        users_degree = {}
-        users_count_tests = {}
         divisions_data = self.ui.cmb_division.currentData()
         if divisions_data:
             division_id = self.ui.cmb_division.currentData().id
@@ -178,13 +177,13 @@ class MainWindow(QMainWindow):
                 users_list.append(r)
                 data = select_results_by_user_id(s, r.id)
                 all_user_results = handler_users_results(data)
-                users_count_tests[r.id] = (len(all_user_results))
+                self.users_count_tests[r.id] = (len(all_user_results))
                 degree = get_user_degree(all_user_results)
-                users_degree[r.id] = degree
+                self.users_degree[r.id] = degree
 
         self.model.set_users(users_list)
-        self.model.set_degree(users_degree)
-        self.model.set_users_tests(users_count_tests)
+        self.model.set_degree(self.users_degree)
+        self.model.set_users_tests(self.users_count_tests)
 
     def load_groups(self):
         """ Вывод списка подразделений """

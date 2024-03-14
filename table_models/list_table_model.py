@@ -52,9 +52,9 @@ class ListTableModel(QtCore.QAbstractTableModel):
                 # if user_info.birth_date is None:
                 #     return "Неизвестна"
                 # return str(user_info.birth_date)
-                return count_tests
-            elif column == 5:
                 return division
+            elif column == 5:
+                return count_tests
             elif column == 6:
                 return degree
         elif role == QtCore.Qt.ItemDataRole.UserRole:
@@ -68,7 +68,7 @@ class ListTableModel(QtCore.QAbstractTableModel):
                     1: 'Фамилия',
                     2: 'Имя',
                     3: 'Отчество',
-                    4: 'Дата\nрождения',
-                    5: 'Подразделение',
+                    4: 'Подразделение',
+                    5: 'Зачётов',
                     6: 'Уровень\nподготовки',
                 }.get(section)
