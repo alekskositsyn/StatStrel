@@ -4,9 +4,12 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6 import QtCore, QtWidgets
 
 from common.config_load import load_config, save_config_file
+from common.get_user_degree import get_user_degree
+from common.handler_users_results import handler_users_results
 from data.create_session import create_session_to_mysql
 from data.delete_user import delete_user
 from data.select_all_groups import select_all_groups
+from data.select_results_by_user_id import select_results_by_user_id
 from data.select_users import select_users
 from data.insert_user import insert_user
 from data.select_users_by_search import select_users_by_search
@@ -161,6 +164,8 @@ class MainWindow(QMainWindow):
         """ Вывод списка сотрудников """
 
         users_list = []
+        users_degree = {}
+        users_count_tests = {}
         divisions_data = self.ui.cmb_division.currentData()
         if divisions_data:
             division_id = self.ui.cmb_division.currentData().id
@@ -171,8 +176,15 @@ class MainWindow(QMainWindow):
             rows = select_users(s, division_id)
             for r in rows:
                 users_list.append(r)
+                data = select_results_by_user_id(s, r.id)
+                all_user_results = handler_users_results(data)
+                users_count_tests[r.id] = (len(all_user_results))
+                degree = get_user_degree(all_user_results)
+                users_degree[r.id] = degree
 
         self.model.set_users(users_list)
+        self.model.set_degree(users_degree)
+        self.model.set_users_tests(users_count_tests)
 
     def load_groups(self):
         """ Вывод списка подразделений """
