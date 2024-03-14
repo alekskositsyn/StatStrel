@@ -1,10 +1,8 @@
 import sys
 
-from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
-from PySide6 import QtCore, QtWidgets, QtCharts
+from PySide6 import QtCore, QtWidgets
 
-from common.calc_mid_divisions import calc_mid_divisions
 from common.config_load import load_config, save_config_file
 from data.create_session import create_session_to_mysql
 from data.delete_user import delete_user
@@ -42,15 +40,12 @@ class MainWindow(QMainWindow):
         if self.flag:
             self.load_groups()
             self.load_users()
-            # self.load_tasks()
-            # self.load_degree()
 
         self.ui.tblItems.setModel(self.model)
         self.ui.tblItems.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
         self.ui.tblItems.doubleClicked.connect(self.on_btn_profile_clicked)
 
         self.ui.cmb_division.currentIndexChanged.connect(self.load_users)
-        # self.ui.cmb_degree.currentIndexChanged.connect(self.load_users)
         self.ui.btn_add.clicked.connect(self.on_btn_add_clicked)
         self.ui.btn_delete.clicked.connect(self.on_btn_remove_clicked)
         self.ui.btn_update.clicked.connect(self.on_btn_edit_clicked)
@@ -82,7 +77,6 @@ class MainWindow(QMainWindow):
             rows = select_users_by_search(s, params)
             for r in rows:
                 users_list.append(r)
-        # print(f'Searching user...{params}')
         self.model.set_users(users_list)
         line_search.clear()
 
@@ -173,30 +167,12 @@ class MainWindow(QMainWindow):
         else:
             division_id = 0
 
-        # degree_data = self.ui.cmb_degree.currentData()
-        # if degree_data:
-        #     degree_id = self.ui.cmb_degree.currentData().id
-        # else:
-        #     degree_id = 0
-
         with create_session_to_mysql(self.config) as s:
             rows = select_users(s, division_id)
             for r in rows:
                 users_list.append(r)
 
         self.model.set_users(users_list)
-        # self.draw_divisions_bar_chart()
-
-    # def load_degree(self):
-    #     """ Вывод списка уровня подготовки """
-    #     self.ui.cmb_degree.addItem('-')
-    #     with create_session() as s:
-    #         self.degree = {}
-    #         rows = fetch_all_degree(s)
-    #         for r in rows:
-    #             self.degree[r.id] = r
-    #             self.ui.cmb_degree.addItem(r.degree, r)
-    # self.model.set_degree(self.degree)
 
     def load_groups(self):
         """ Вывод списка подразделений """
@@ -211,18 +187,6 @@ class MainWindow(QMainWindow):
 
         for division in self.divisions.values():
             self.ui.cmb_division.addItem(division.name, division)
-
-    # def load_tasks(self):
-    #     self.ui.cmbTasks.addItem('-')
-    #     with create_session() as s:
-    #         self.tasks = {}
-    #         rows = fetch_all_tasks(s)
-    #         for r in rows:
-    #             self.tasks[r.id] = r
-    #             self.ui.cmbTasks.addItem(r.name, r)
-
-    # for task in self.tasks.values():
-    #     self.ui.cmbTasks.addItem(task.name, task)
 
     def show_div_chart(self):
         self.chart_view = DivisionChart(self.divisions, self.config)
