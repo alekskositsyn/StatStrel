@@ -1,3 +1,4 @@
+
 class User:
     def __init__(self, first_name, last_name, user_id=None, group_id=None, is_operator=0,
                  middle_name=None, personal_number=None, birth_date=None,

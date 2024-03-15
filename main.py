@@ -134,7 +134,6 @@ class MainWindow(QMainWindow):
         dialog = UserCreatDialog(self.divisions)
         r = dialog.exec()
         if r == 0:
-            print('Exit')
             return
 
         data = dialog.get_data()

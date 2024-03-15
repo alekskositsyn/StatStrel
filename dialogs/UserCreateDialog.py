@@ -1,11 +1,12 @@
 from PySide6.QtWidgets import QDialog
-
+from common.class_user import User
 from user_interface.add_officer_ui import Ui_dialog
 
 
 class UserCreatDialog(QDialog):
     def __init__(self, divisions, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.user = User
         self.ui = Ui_dialog()
         self.ui.setupUi(self)
 
@@ -24,12 +25,21 @@ class UserCreatDialog(QDialog):
             is_operator = 1
         else:
             is_operator = 0
-        return {
-            'first_name': self.ui.txtFirstName.text(),
-            'middle_name': self.ui.txtMiddleName.text(),
-            'last_name': self.ui.txtLastName.text(),
-            'birth_date': self.ui.dateEdit.date().toPython(),
-            'group_id': self.ui.cmbDivisions.currentData().id,
-            'personal_number': personal_number,
-            'is_operator': is_operator
-        }
+        self.user.first_name = self.ui.txtFirstName.text()
+        self.user.last_name = self.ui.txtLastName.text()
+        self.user.middle_name = self.ui.txtMiddleName.text()
+        self.user.birth_date = self.ui.dateEdit.date().toPython()
+        self.user.group_id = self.ui.cmbDivisions.currentData().id
+        self.user.personal_number = personal_number
+        self.user.is_operator = is_operator
+        return self.user
+
+        # return {
+        #     'first_name': self.ui.txtFirstName.text(),
+        #     'middle_name': self.ui.txtMiddleName.text(),
+        #     'last_name': self.ui.txtLastName.text(),
+        #     'birth_date': self.ui.dateEdit.date().toPython(),
+        #     'group_id': self.ui.cmbDivisions.currentData().id,
+        #     'personal_number': personal_number,
+        #     'is_operator': is_operator
+        # }
