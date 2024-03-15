@@ -43,7 +43,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="line_edit_path"/>
+       <widget class="QLineEdit" name="file_path_field"/>
       </item>
      </layout>
     </widget>
@@ -65,7 +65,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="line_edit_file_name">
+       <widget class="QLineEdit" name="file_name_field">
         <property name="text">
          <string/>
         </property>
@@ -91,7 +91,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QPushButton" name="dtn_check_file">
+       <widget class="QPushButton" name="btn_check_file">
         <property name="text">
          <string>Проверить файл</string>
         </property>

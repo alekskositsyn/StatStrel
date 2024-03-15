@@ -39,10 +39,10 @@ class Ui_ParsingFilePath(object):
 
         self.horizontalLayout.addWidget(self.label)
 
-        self.line_edit_path = QLineEdit(self.frame)
-        self.line_edit_path.setObjectName(u"line_edit_path")
+        self.file_path_field = QLineEdit(self.frame)
+        self.file_path_field.setObjectName(u"file_path_field")
 
-        self.horizontalLayout.addWidget(self.line_edit_path)
+        self.horizontalLayout.addWidget(self.file_path_field)
 
 
         self.verticalLayout.addWidget(self.frame)
@@ -58,10 +58,10 @@ class Ui_ParsingFilePath(object):
 
         self.horizontalLayout_2.addWidget(self.label_2)
 
-        self.line_edit_file_name = QLineEdit(self.frame_2)
-        self.line_edit_file_name.setObjectName(u"line_edit_file_name")
+        self.file_name_field = QLineEdit(self.frame_2)
+        self.file_name_field.setObjectName(u"file_name_field")
 
-        self.horizontalLayout_2.addWidget(self.line_edit_file_name)
+        self.horizontalLayout_2.addWidget(self.file_name_field)
 
         self.btn_path = QPushButton(self.frame_2)
         self.btn_path.setObjectName(u"btn_path")
@@ -77,10 +77,10 @@ class Ui_ParsingFilePath(object):
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.dtn_check_file = QPushButton(self.frame_3)
-        self.dtn_check_file.setObjectName(u"dtn_check_file")
+        self.btn_check_file = QPushButton(self.frame_3)
+        self.btn_check_file.setObjectName(u"btn_check_file")
 
-        self.horizontalLayout_3.addWidget(self.dtn_check_file)
+        self.horizontalLayout_3.addWidget(self.btn_check_file)
 
         self.btn_cancle = QPushButton(self.frame_3)
         self.btn_cancle.setObjectName(u"btn_cancle")
@@ -100,9 +100,9 @@ class Ui_ParsingFilePath(object):
         ParsingFilePath.setWindowTitle(QCoreApplication.translate("ParsingFilePath", u"\u041f\u0443\u0442\u044c \u0434\u043e \u0444\u0430\u0439\u043b\u0430", None))
         self.label.setText(QCoreApplication.translate("ParsingFilePath", u"\u041f\u0443\u0442\u044c \u0434\u043e \u0444\u0430\u0439\u043b\u0430:", None))
         self.label_2.setText(QCoreApplication.translate("ParsingFilePath", u"\u0418\u043c\u044f \u0444\u0430\u0439\u043b\u0430:", None))
-        self.line_edit_file_name.setText("")
+        self.file_name_field.setText("")
         self.btn_path.setText(QCoreApplication.translate("ParsingFilePath", u"\u041e\u0431\u0437\u043e\u0440...", None))
-        self.dtn_check_file.setText(QCoreApplication.translate("ParsingFilePath", u"\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0444\u0430\u0439\u043b", None))
+        self.btn_check_file.setText(QCoreApplication.translate("ParsingFilePath", u"\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0444\u0430\u0439\u043b", None))
         self.btn_cancle.setText(QCoreApplication.translate("ParsingFilePath", u"\u041e\u0442\u043c\u0435\u043d\u0430", None))
     # retranslateUi
 

@@ -14,6 +14,7 @@ from data.select_users import select_users
 from data.insert_user import insert_user
 from data.select_users_by_search import select_users_by_search
 from data.update_user import update_user
+from dialogs.AddUsersList import AddUsersList
 from dialogs.DivisionChartDialog import DivisionChart
 from dialogs.UserCreateDialog import UserCreatDialog
 from dialogs.UserEditDialog import UserEditDialog
@@ -56,8 +57,14 @@ class MainWindow(QMainWindow):
         self.ui.btn_profile.clicked.connect(self.on_btn_profile_clicked)
         self.ui.btnSearch.clicked.connect(self.search_user)
         self.ui.btn_settings_2.triggered.connect(self.on_btn_settings)
+        self.ui.add_users_from_file.triggered.connect(self.on_btn_add_from_file)
         self.ui.btn_dev_degree.clicked.connect(self.show_div_chart)
 
+    def on_btn_add_from_file(self):
+        dialog = AddUsersList()
+        r = dialog.exec()
+        if r == 0:
+            return
 
     def on_btn_settings(self):
         """ Вызов окна настроек подключения к БД """
@@ -65,7 +72,6 @@ class MainWindow(QMainWindow):
         dialog = SettingsDialog()
         r = dialog.exec()
         if r == 0:
-            print('Exit')
             return
         data = dialog.get_data()
         save_config_file(data)

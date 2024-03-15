@@ -33,13 +33,3 @@ class UserCreatDialog(QDialog):
         self.user.personal_number = personal_number
         self.user.is_operator = is_operator
         return self.user
-
-        # return {
-        #     'first_name': self.ui.txtFirstName.text(),
-        #     'middle_name': self.ui.txtMiddleName.text(),
-        #     'last_name': self.ui.txtLastName.text(),
-        #     'birth_date': self.ui.dateEdit.date().toPython(),
-        #     'group_id': self.ui.cmbDivisions.currentData().id,
-        #     'personal_number': personal_number,
-        #     'is_operator': is_operator
-        # }
