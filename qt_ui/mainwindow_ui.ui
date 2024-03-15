@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>682</width>
+    <width>721</width>
     <height>597</height>
    </rect>
   </property>
@@ -60,6 +60,12 @@
           </property>
           <item row="0" column="0">
            <widget class="QTableView" name="tblItems">
+            <property name="minimumSize">
+             <size>
+              <width>480</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
             </property>
@@ -113,17 +119,19 @@
              <enum>QFrame::Raised</enum>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
              <item>
               <widget class="QPushButton" name="btn_dev_degree">
                <property name="text">
                 <string>Показать график результатов
  по подразделениям</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_bad_degree">
+               <property name="text">
+                <string>Показать сотрудников
+с плохими результатами</string>
                </property>
               </widget>
              </item>
@@ -258,7 +266,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>682</width>
+     <width>721</width>
      <height>22</height>
     </rect>
    </property>
@@ -266,6 +274,7 @@
     <property name="title">
      <string>Меню</string>
     </property>
+    <addaction name="add_users_from_file"/>
     <addaction name="btn_settings_2"/>
     <addaction name="action_5"/>
    </widget>
@@ -294,6 +303,11 @@
   <action name="action_5">
    <property name="text">
     <string>О программе</string>
+   </property>
+  </action>
+  <action name="add_users_from_file">
+   <property name="text">
+    <string>Добавить сотрудников из файла</string>
    </property>
   </action>
  </widget>

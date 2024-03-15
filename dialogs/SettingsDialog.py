@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QDialog
 
 from data.create_session import test_session_mysql
-from settings_ui import Ui_SettingsDialog
+from user_interface.settings_ui import Ui_SettingsDialog
 
 
 class SettingsDialog(QDialog):

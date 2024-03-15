@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QDialog, QMainWindow
 from common.calc_mid_divisions import calc_mid_divisions
 from common.get_division_degree import get_division_degree
 from data.create_session import create_session_to_mysql
-from devision_chart_ui import Ui_DivChartDialog
+from user_interface.devision_chart_ui import Ui_DivChartDialog
 
 
 class DivisionChart(QDialog):

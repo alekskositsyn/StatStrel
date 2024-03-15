@@ -20,7 +20,7 @@ from dialogs.UserEditDialog import UserEditDialog
 from dialogs.UserProfileDialog import UserProfileDialog
 from dialogs.SettingsDialog import SettingsDialog
 from table_models.list_table_model import ListTableModel
-from mainwindow_ui import Ui_MainWindow
+from user_interface.mainwindow_ui import Ui_MainWindow
 
 
 class MainWindow(QMainWindow):
@@ -57,6 +57,7 @@ class MainWindow(QMainWindow):
         self.ui.btnSearch.clicked.connect(self.search_user)
         self.ui.btn_settings_2.triggered.connect(self.on_btn_settings)
         self.ui.btn_dev_degree.clicked.connect(self.show_div_chart)
+
 
     def on_btn_settings(self):
         """ Вызов окна настроек подключения к БД """

@@ -10,7 +10,7 @@ from data.create_session import create_session, create_session_to_mysql
 from data.insert_user_results import insert_user_results
 from data.select_results_by_user_id import select_results_by_user_id
 from table_models.user_profile_table_model import UserProfileTableModel
-from user_profile_ui import Ui_Dialog
+from user_interface.user_profile_ui import Ui_Dialog
 
 
 class UserProfileDialog(QDialog):

@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QDialog
 
-from add_officer_ui import Ui_dialog
+from user_interface.add_officer_ui import Ui_dialog
 
 
 class UserCreatDialog(QDialog):

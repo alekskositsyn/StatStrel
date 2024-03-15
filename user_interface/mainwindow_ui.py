@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(682, 597)
+        MainWindow.resize(721, 597)
         self.action = QAction(MainWindow)
         self.action.setObjectName(u"action")
         self.action_2 = QAction(MainWindow)
@@ -36,6 +36,8 @@ class Ui_MainWindow(object):
         self.btn_settings_2.setObjectName(u"btn_settings_2")
         self.action_5 = QAction(MainWindow)
         self.action_5.setObjectName(u"action_5")
+        self.add_users_from_file = QAction(MainWindow)
+        self.add_users_from_file.setObjectName(u"add_users_from_file")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
@@ -63,6 +65,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.setContentsMargins(0, -1, 0, 0)
         self.tblItems = QTableView(self.frame)
         self.tblItems.setObjectName(u"tblItems")
+        self.tblItems.setMinimumSize(QSize(480, 0))
         self.tblItems.setFrameShadow(QFrame.Plain)
         self.tblItems.setLineWidth(1)
         self.tblItems.setAlternatingRowColors(True)
@@ -84,11 +87,15 @@ class Ui_MainWindow(object):
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self.frame_3)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, -1, 0, -1)
         self.btn_dev_degree = QPushButton(self.frame_3)
         self.btn_dev_degree.setObjectName(u"btn_dev_degree")
 
         self.verticalLayout.addWidget(self.btn_dev_degree)
+
+        self.btn_bad_degree = QPushButton(self.frame_3)
+        self.btn_bad_degree.setObjectName(u"btn_bad_degree")
+
+        self.verticalLayout.addWidget(self.btn_bad_degree)
 
         self.verticalSpacer = QSpacerItem(20, 208, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -180,12 +187,13 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menuBar = QMenuBar(MainWindow)
         self.menuBar.setObjectName(u"menuBar")
-        self.menuBar.setGeometry(QRect(0, 0, 682, 22))
+        self.menuBar.setGeometry(QRect(0, 0, 721, 22))
         self.menu = QMenu(self.menuBar)
         self.menu.setObjectName(u"menu")
         MainWindow.setMenuBar(self.menuBar)
 
         self.menuBar.addAction(self.menu.menuAction())
+        self.menu.addAction(self.add_users_from_file)
         self.menu.addAction(self.btn_settings_2)
         self.menu.addAction(self.action_5)
 
@@ -201,8 +209,11 @@ class Ui_MainWindow(object):
         self.action_3.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
         self.btn_settings_2.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
         self.action_5.setText(QCoreApplication.translate("MainWindow", u"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435", None))
+        self.add_users_from_file.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u043e\u0432 \u0438\u0437 \u0444\u0430\u0439\u043b\u0430", None))
         self.btn_dev_degree.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0433\u0440\u0430\u0444\u0438\u043a \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432\n"
 " \u043f\u043e \u043f\u043e\u0434\u0440\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u0438\u044f\u043c", None))
+        self.btn_bad_degree.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u043e\u0432\n"
+"\u0441 \u043f\u043b\u043e\u0445\u0438\u043c\u0438 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430\u043c\u0438", None))
         self.btnSearch.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0438\u0441\u043a", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0434\u0440\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u0438\u0435", None))
         self.btn_profile.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0444\u0438\u043b\u044c", None))
