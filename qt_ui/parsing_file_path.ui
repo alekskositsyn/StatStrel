@@ -58,20 +58,6 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Имя файла:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="file_name_field">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="btn_path">
         <property name="text">
          <string>Обзор...</string>

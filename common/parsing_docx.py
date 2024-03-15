@@ -7,7 +7,7 @@ def parsing_docx(path):
     doc = docx.Document(path)
     table = doc.tables[0]
     user_list = []
-    for r in range(3):
+    for r in range(1, (len(table.rows))):
         user = User
         if r == 0:
             continue
