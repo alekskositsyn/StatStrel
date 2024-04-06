@@ -16,4 +16,4 @@ def insert_user(s: Session, user):
         "personal_number": user.personal_number,
         "is_operator": user.is_operator,
     })
-    s.commit()
+    # s.commit()

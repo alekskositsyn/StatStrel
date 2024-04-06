@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QDialog, QFileDialog, QMessageBox, QProgressBar, QWidget, QVBoxLayout
+from PySide6.QtWidgets import QDialog, QFileDialog, QMessageBox
 from common.parsing_docx import parsing_docx
 from dialogs.CheckParsFile import CheckParsFile
 from user_interface.parsing_file_path_ui import Ui_ParsingFilePath
@@ -13,6 +13,7 @@ class ParsingFilePathDialog(QDialog):
         self.file_path = None
         self.users_list = None
         self.progress_bar = self.ui.progressBar
+        self.ui.btn_save.setEnabled(False)
 
         self.ui.btn_cancle.clicked.connect(self.reject)
         self.ui.btn_save.clicked.connect(self.on_save_btn)
@@ -40,7 +41,12 @@ class ParsingFilePathDialog(QDialog):
         dialog = CheckParsFile(self.users_list, self.divisions)
         r = dialog.exec()
         if r == 0:
+            self.progress_bar.setValue(0)
             return
+        self.ui.btn_save.setEnabled(True)
+
+    def get_data(self):
+        return self.users_list
 
     def on_save_btn(self):
         print('Save')

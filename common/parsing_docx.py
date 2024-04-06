@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import docx
 from PySide6.QtWidgets import QApplication
 
@@ -26,7 +28,9 @@ def parsing_docx(path, progress_bar):
                 name = cell.text.split()
                 first_name, last_name, middle_name = name
             elif c == 2:
-                birth_date = cell.text
+                date_str = cell.text
+                date_obj = datetime.strptime(date_str, '%d.%m.%Y')
+                birth_date = date_obj.strftime('%Y-%m-%d')
             elif c == 3:
                 identity_number = cell.text
             elif c == 4:

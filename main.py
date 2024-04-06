@@ -61,10 +61,16 @@ class MainWindow(QMainWindow):
         self.ui.btn_dev_degree.clicked.connect(self.show_div_chart)
 
     def on_btn_add_users_from_file(self):
+
         dialog = ParsingFilePathDialog(self.divisions)
         r = dialog.exec()
         if r == 0:
             return
+        users_list = dialog.get_data()
+        with create_session_to_mysql(self.config) as s:
+            for user in users_list:
+                insert_user(s, user)
+        self.load_users()
 
     def on_btn_settings(self):
         """ Вызов окна настроек подключения к БД """
