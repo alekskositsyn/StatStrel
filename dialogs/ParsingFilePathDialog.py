@@ -1,15 +1,12 @@
-from PySide6.QtCore import QAbstractListModel
 from PySide6.QtWidgets import QDialog, QFileDialog, QMessageBox, QProgressBar, QWidget, QVBoxLayout
 from common.parsing_docx import parsing_docx
 from dialogs.CheckParsFile import CheckParsFile
-from dialogs.ProgressBarDialog import ProgressBarDialog
 from user_interface.parsing_file_path_ui import Ui_ParsingFilePath
 
 
 class ParsingFilePathDialog(QDialog):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.user = User
         self.ui = Ui_ParsingFilePath()
         self.ui.setupUi(self)
         self.file_path = None
@@ -20,8 +17,6 @@ class ParsingFilePathDialog(QDialog):
         # Создаем ProgressBar
         self.progress_bar = QProgressBar(self)
         layout.addWidget(self.progress_bar)
-        # Устанавливаем центральный виджет
-        # self.setCentralWidget(central_widget)
 
         self.ui.btn_cancle.clicked.connect(self.reject)
         self.ui.btn_save.clicked.connect(self.on_save_btn)

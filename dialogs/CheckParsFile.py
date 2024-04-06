@@ -34,9 +34,7 @@ class CheckParsFile(QDialog):
         self.ui.btnCancel.clicked.connect(self.reject)
         self.ui.btnSave.clicked.connect(self.accept)
         for row in self.users_list:
-            self.ui.usersListWidget.addItem(f"{row.first_name} "
-                                            f"{row.middle_name} "
-                                            f"{row.last_name} "
-                                            f"{row.identity_number}"
-                                            f"{row.birth_date}"
-                                            f"{row.group_id}")
+            self.ui.usersListWidget.addItem(
+                f"{row.first_name} {row.middle_name} {row.last_name} "
+                f"{row.identity_number} {row.birth_date} {row.group_id}"
+            )
