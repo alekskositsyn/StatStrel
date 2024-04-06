@@ -16,33 +16,34 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QHBoxLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget)
+    QLabel, QLineEdit, QProgressBar, QPushButton,
+    QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_ParsingFilePath(object):
     def setupUi(self, ParsingFilePath):
         if not ParsingFilePath.objectName():
             ParsingFilePath.setObjectName(u"ParsingFilePath")
-        ParsingFilePath.resize(350, 183)
+        ParsingFilePath.resize(550, 183)
         ParsingFilePath.setMinimumSize(QSize(350, 183))
-        ParsingFilePath.setMaximumSize(QSize(350, 183))
+        ParsingFilePath.setMaximumSize(QSize(550, 183))
         self.verticalLayout = QVBoxLayout(ParsingFilePath)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.frame = QFrame(ParsingFilePath)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout = QHBoxLayout(self.frame)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout_2 = QHBoxLayout(self.frame)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, -1, 0, 0)
         self.label = QLabel(self.frame)
         self.label.setObjectName(u"label")
 
-        self.horizontalLayout.addWidget(self.label)
+        self.horizontalLayout_2.addWidget(self.label)
 
         self.file_path_field = QLineEdit(self.frame)
         self.file_path_field.setObjectName(u"file_path_field")
 
-        self.horizontalLayout.addWidget(self.file_path_field)
+        self.horizontalLayout_2.addWidget(self.file_path_field)
 
 
         self.verticalLayout.addWidget(self.frame)
@@ -52,10 +53,26 @@ class Ui_ParsingFilePath(object):
 
         self.verticalLayout.addWidget(self.btn_path)
 
-        self.btn_check_file = QPushButton(ParsingFilePath)
+        self.frame_2 = QFrame(ParsingFilePath)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout = QHBoxLayout(self.frame_2)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.btn_check_file = QPushButton(self.frame_2)
         self.btn_check_file.setObjectName(u"btn_check_file")
 
-        self.verticalLayout.addWidget(self.btn_check_file)
+        self.horizontalLayout.addWidget(self.btn_check_file)
+
+        self.progressBar = QProgressBar(self.frame_2)
+        self.progressBar.setObjectName(u"progressBar")
+        self.progressBar.setValue(0)
+
+        self.horizontalLayout.addWidget(self.progressBar)
+
+
+        self.verticalLayout.addWidget(self.frame_2)
 
         self.frame_3 = QFrame(ParsingFilePath)
         self.frame_3.setObjectName(u"frame_3")
@@ -63,6 +80,7 @@ class Ui_ParsingFilePath(object):
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(0, -1, 0, -1)
         self.btn_save = QPushButton(self.frame_3)
         self.btn_save.setObjectName(u"btn_save")
 

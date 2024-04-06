@@ -61,7 +61,7 @@ class MainWindow(QMainWindow):
         self.ui.btn_dev_degree.clicked.connect(self.show_div_chart)
 
     def on_btn_add_users_from_file(self):
-        dialog = ParsingFilePathDialog()
+        dialog = ParsingFilePathDialog(self.divisions)
         r = dialog.exec()
         if r == 0:
             return

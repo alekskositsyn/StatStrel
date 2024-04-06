@@ -5,18 +5,14 @@ from user_interface.parsing_file_path_ui import Ui_ParsingFilePath
 
 
 class ParsingFilePathDialog(QDialog):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, divisions, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ui = Ui_ParsingFilePath()
         self.ui.setupUi(self)
+        self.divisions = divisions
         self.file_path = None
         self.users_list = None
-
-        central_widget = QWidget(self)
-        layout = QVBoxLayout(central_widget)
-        # Создаем ProgressBar
-        self.progress_bar = QProgressBar(self)
-        layout.addWidget(self.progress_bar)
+        self.progress_bar = self.ui.progressBar
 
         self.ui.btn_cancle.clicked.connect(self.reject)
         self.ui.btn_save.clicked.connect(self.on_save_btn)
@@ -41,10 +37,11 @@ class ParsingFilePathDialog(QDialog):
             return
         self.users_list = parsing_docx(self.file_path, self.progress_bar)
 
-        dialog = CheckParsFile(self.users_list)
+        dialog = CheckParsFile(self.users_list, self.divisions)
         r = dialog.exec()
         if r == 0:
             return
 
     def on_save_btn(self):
         print('Save')
+        return self.accept()
