@@ -23,9 +23,9 @@ class Ui_ParsingFilePath(object):
     def setupUi(self, ParsingFilePath):
         if not ParsingFilePath.objectName():
             ParsingFilePath.setObjectName(u"ParsingFilePath")
-        ParsingFilePath.resize(350, 160)
-        ParsingFilePath.setMinimumSize(QSize(350, 160))
-        ParsingFilePath.setMaximumSize(QSize(350, 160))
+        ParsingFilePath.resize(350, 183)
+        ParsingFilePath.setMinimumSize(QSize(350, 183))
+        ParsingFilePath.setMaximumSize(QSize(350, 183))
         self.verticalLayout = QVBoxLayout(ParsingFilePath)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.frame = QFrame(ParsingFilePath)
@@ -47,19 +47,15 @@ class Ui_ParsingFilePath(object):
 
         self.verticalLayout.addWidget(self.frame)
 
-        self.frame_2 = QFrame(ParsingFilePath)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame_2)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.btn_path = QPushButton(self.frame_2)
+        self.btn_path = QPushButton(ParsingFilePath)
         self.btn_path.setObjectName(u"btn_path")
 
-        self.horizontalLayout_2.addWidget(self.btn_path)
+        self.verticalLayout.addWidget(self.btn_path)
 
+        self.btn_check_file = QPushButton(ParsingFilePath)
+        self.btn_check_file.setObjectName(u"btn_check_file")
 
-        self.verticalLayout.addWidget(self.frame_2)
+        self.verticalLayout.addWidget(self.btn_check_file)
 
         self.frame_3 = QFrame(ParsingFilePath)
         self.frame_3.setObjectName(u"frame_3")
@@ -67,10 +63,10 @@ class Ui_ParsingFilePath(object):
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.btn_check_file = QPushButton(self.frame_3)
-        self.btn_check_file.setObjectName(u"btn_check_file")
+        self.btn_save = QPushButton(self.frame_3)
+        self.btn_save.setObjectName(u"btn_save")
 
-        self.horizontalLayout_3.addWidget(self.btn_check_file)
+        self.horizontalLayout_3.addWidget(self.btn_save)
 
         self.btn_cancle = QPushButton(self.frame_3)
         self.btn_cancle.setObjectName(u"btn_cancle")
@@ -91,6 +87,7 @@ class Ui_ParsingFilePath(object):
         self.label.setText(QCoreApplication.translate("ParsingFilePath", u"\u041f\u0443\u0442\u044c \u0434\u043e \u0444\u0430\u0439\u043b\u0430:", None))
         self.btn_path.setText(QCoreApplication.translate("ParsingFilePath", u"\u041e\u0431\u0437\u043e\u0440...", None))
         self.btn_check_file.setText(QCoreApplication.translate("ParsingFilePath", u"\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0444\u0430\u0439\u043b", None))
+        self.btn_save.setText(QCoreApplication.translate("ParsingFilePath", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.btn_cancle.setText(QCoreApplication.translate("ParsingFilePath", u"\u041e\u0442\u043c\u0435\u043d\u0430", None))
     # retranslateUi
 

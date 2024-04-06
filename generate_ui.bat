@@ -5,3 +5,4 @@ pyside6-uic qt_ui\settings_ui.ui -o user_interface\settings_ui.py
 pyside6-uic qt_ui\div_chart_dialog.ui -o user_interface\devision_chart_ui.py
 pyside6-uic qt_ui\parsing_file_path.ui -o user_interface\parsing_file_path_ui.py
 pyside6-uic qt_ui\usersListDialog.ui -o user_interface\users_list_dialog_ui.py
+pyside6-uic qt_ui\progressBar.ui -o user_interface\progress_bar_ui.py
