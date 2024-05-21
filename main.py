@@ -1,8 +1,6 @@
+"""Модуль запуска приложения"""
 import sys
-
-from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6 import QtCore, QtWidgets
-
 from common.config_load import load_config, save_config_file
 from common.get_user_degree import get_user_degree
 from common.handler_users_results import handler_users_results
@@ -24,7 +22,8 @@ from table_models.list_table_model import ListTableModel
 from user_interface.mainwindow_ui import Ui_MainWindow
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
+    """ Класс главного окна приложения"""
     def __init__(self):
         super(MainWindow, self).__init__()
         self.chart_view = None
@@ -61,7 +60,7 @@ class MainWindow(QMainWindow):
         self.ui.btn_dev_degree.clicked.connect(self.show_div_chart)
 
     def on_btn_add_users_from_file(self):
-
+        """ Вызов окна для добавления сотрудников из файла """
         dialog = ParsingFilePathDialog(self.divisions)
         r = dialog.exec()
         if r == 0:
@@ -100,7 +99,7 @@ class MainWindow(QMainWindow):
     def on_btn_profile_clicked(self):
         """  Профиль сотрудника """
 
-        remember_choice = QMessageBox()
+        remember_choice = QtWidgets.QMessageBox()
         remember_choice.setWindowTitle("Профиль сотрудника")
         remember_choice.setText("Выберите сотрудника")
 
@@ -117,7 +116,7 @@ class MainWindow(QMainWindow):
     def on_btn_edit_clicked(self):
         """ Вызов окна редактирования данных сотрудника """
 
-        remember_choice = QMessageBox()
+        remember_choice = QtWidgets.QMessageBox()
         remember_choice.setWindowTitle("Редактирование данных сотрудника")
         remember_choice.setText("Выберите сотрудника для редактирования")
         item = self.ui.tblItems.currentIndex()
@@ -156,7 +155,7 @@ class MainWindow(QMainWindow):
     def on_btn_remove_clicked(self):
         """ Удаление сотрудника """
 
-        remember_choice = QMessageBox()
+        remember_choice = QtWidgets.QMessageBox()
         remember_choice.setWindowTitle("Удаление")
         remember_choice.setText("Выберите сотрудника для удаления")
         item = self.ui.tblItems.currentIndex()
@@ -166,8 +165,8 @@ class MainWindow(QMainWindow):
             remember_choice.exec()
             return
         item_id = data.id
-        r = QMessageBox.question(self, "Подтверждение", "Точно ли хотите удалить")
-        if r == QMessageBox.StandardButton.No:
+        r = QtWidgets.QMessageBox.question(self, "Подтверждение", "Точно ли хотите удалить")
+        if r == QtWidgets.QMessageBox.StandardButton.No:
             return
         with create_session_to_mysql(self.config) as s:
             delete_user(s, item_id)
@@ -189,7 +188,7 @@ class MainWindow(QMainWindow):
                 users_list.append(r)
                 data = select_results_by_user_id(s, r.id)
                 all_user_results = handler_users_results(data)
-                self.users_count_tests[r.id] = (len(all_user_results))
+                self.users_count_tests[r.id] = len(all_user_results)
                 degree = get_user_degree(all_user_results)
                 self.users_degree[r.id] = degree
 
@@ -212,12 +211,13 @@ class MainWindow(QMainWindow):
             self.ui.cmb_division.addItem(division.name, division)
 
     def show_div_chart(self):
+        """ Вызов окна с графиком """
         self.chart_view = DivisionChart(self.divisions, self.config)
         self.chart_view.show()
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
