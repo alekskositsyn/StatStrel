@@ -1,4 +1,3 @@
-# coding: utf-8
 from PySide6 import QtCharts
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QDialog, QMainWindow
@@ -55,14 +54,14 @@ class DivisionChart(QDialog):
 
         axis_x = QtCharts.QBarCategoryAxis()
         axis_x.append(divisions_names)
-        chart.addAxis(axis_x, Qt.AlignBottom)
+        chart.addAxis(axis_x, Qt.AlignBottom) # type: ignore
         series.attachAxis(axis_x)
 
         axis_y = QtCharts.QValueAxis()
         axis_y.setLabelFormat("%i")
         axis_y.setTitleText("Проценты")
         axis_y.setMax(100)
-        chart.addAxis(axis_y, Qt.AlignLeft)
+        chart.addAxis(axis_y, Qt.AlignLeft) # type: ignore
         series.attachAxis(axis_y)
 
         # Set the chart view's chart
